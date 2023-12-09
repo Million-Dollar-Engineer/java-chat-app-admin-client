@@ -138,6 +138,7 @@ public class UserManager extends javax.swing.JPanel {
     }
 
     protected void paintComponent(Graphics grphcs) {
+        System.out.println("User manager");
         Graphics2D g2 = (Graphics2D) grphcs;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2.setColor(getBackground());

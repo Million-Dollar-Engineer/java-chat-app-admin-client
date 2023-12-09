@@ -87,7 +87,7 @@
               <Component id="spamAndReportOption" alignment="0" max="32767" attributes="0"/>
               <Component id="groupChatListOption" max="32767" attributes="0"/>
               <Component id="newRegisteredOption" max="32767" attributes="0"/>
-              <Component id="registeredChartOption1" max="32767" attributes="0"/>
+              <Component id="registeredChartOption" max="32767" attributes="0"/>
               <Component id="userRelatedOption1" alignment="0" max="32767" attributes="0"/>
               <Component id="userOnlineOption" alignment="0" max="32767" attributes="0"/>
               <Group type="102" alignment="1" attributes="0">
@@ -111,7 +111,7 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="newRegisteredOption" min="-2" pref="37" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="registeredChartOption1" min="-2" pref="37" max="-2" attributes="0"/>
+                  <Component id="registeredChartOption" min="-2" pref="37" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="userRelatedOption1" min="-2" pref="37" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -254,7 +254,7 @@
             <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="newRegisteredOptionMouseExited"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="registeredChartOption1">
+        <Component class="javax.swing.JLabel" name="registeredChartOption">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ef" green="9f" red="82" type="rgb"/>
@@ -275,9 +275,9 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="registeredChartOption1MouseClicked"/>
-            <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="registeredChartOption1MouseEntered"/>
-            <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="registeredChartOption1MouseExited"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="registeredChartOptionMouseClicked"/>
+            <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="registeredChartOptionMouseEntered"/>
+            <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="registeredChartOptionMouseExited"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="userRelatedOption1">

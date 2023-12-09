@@ -38,7 +38,7 @@ public class Menu extends javax.swing.JPanel {
         loginHistoryOption = new javax.swing.JLabel();
         groupChatListOption = new javax.swing.JLabel();
         newRegisteredOption = new javax.swing.JLabel();
-        registeredChartOption1 = new javax.swing.JLabel();
+        registeredChartOption = new javax.swing.JLabel();
         userRelatedOption1 = new javax.swing.JLabel();
         userOnlineOption = new javax.swing.JLabel();
         userOnlineChartOption = new javax.swing.JLabel();
@@ -163,22 +163,22 @@ public class Menu extends javax.swing.JPanel {
             }
         });
 
-        registeredChartOption1.setBackground(new java.awt.Color(130, 159, 239));
-        registeredChartOption1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        registeredChartOption1.setForeground(new java.awt.Color(255, 255, 255));
-        registeredChartOption1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        registeredChartOption1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/raven/icon/stock.png"))); // NOI18N
-        registeredChartOption1.setText("Registered Chart");
-        registeredChartOption1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        registeredChartOption1.addMouseListener(new java.awt.event.MouseAdapter() {
+        registeredChartOption.setBackground(new java.awt.Color(130, 159, 239));
+        registeredChartOption.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        registeredChartOption.setForeground(new java.awt.Color(255, 255, 255));
+        registeredChartOption.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        registeredChartOption.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/raven/icon/stock.png"))); // NOI18N
+        registeredChartOption.setText("Registered Chart");
+        registeredChartOption.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        registeredChartOption.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                registeredChartOption1MouseClicked(evt);
+                registeredChartOptionMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                registeredChartOption1MouseEntered(evt);
+                registeredChartOptionMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                registeredChartOption1MouseExited(evt);
+                registeredChartOptionMouseExited(evt);
             }
         });
 
@@ -248,7 +248,7 @@ public class Menu extends javax.swing.JPanel {
             .addComponent(spamAndReportOption, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(groupChatListOption, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(newRegisteredOption, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(registeredChartOption1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(registeredChartOption, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(userRelatedOption1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(userOnlineOption, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOptionLayout.createSequentialGroup()
@@ -270,7 +270,7 @@ public class Menu extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(newRegisteredOption, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(registeredChartOption1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(registeredChartOption, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(userRelatedOption1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -321,9 +321,9 @@ public class Menu extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_newRegisteredOptionMouseClicked
 
-    private void registeredChartOption1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registeredChartOption1MouseClicked
+    private void registeredChartOptionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registeredChartOptionMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_registeredChartOption1MouseClicked
+    }//GEN-LAST:event_registeredChartOptionMouseClicked
 
     private void userRelatedOption1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userRelatedOption1MouseClicked
         // TODO add your handling code here:
@@ -402,18 +402,18 @@ public class Menu extends javax.swing.JPanel {
 
     }//GEN-LAST:event_newRegisteredOptionMouseExited
 
-    private void registeredChartOption1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registeredChartOption1MouseEntered
+    private void registeredChartOptionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registeredChartOptionMouseEntered
 
-        registeredChartOption1.setOpaque(true);
-        registeredChartOption1.setBackground(new Color(130, 159, 239));
-        registeredChartOption1.repaint();
-    }//GEN-LAST:event_registeredChartOption1MouseEntered
+        registeredChartOption.setOpaque(true);
+        registeredChartOption.setBackground(new Color(130, 159, 239));
+        registeredChartOption.repaint();
+    }//GEN-LAST:event_registeredChartOptionMouseEntered
 
-    private void registeredChartOption1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registeredChartOption1MouseExited
+    private void registeredChartOptionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registeredChartOptionMouseExited
         // TODO add your handling code here:
-        registeredChartOption1.setOpaque(false);
-        registeredChartOption1.setBackground(null);
-    }//GEN-LAST:event_registeredChartOption1MouseExited
+        registeredChartOption.setOpaque(false);
+        registeredChartOption.setBackground(null);
+    }//GEN-LAST:event_registeredChartOptionMouseExited
 
     private void userRelatedOption1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userRelatedOption1MouseEntered
         // TODO add your handling code here:
@@ -476,10 +476,16 @@ public class Menu extends javax.swing.JPanel {
     public void addListenerSpamAndReportOption(MouseAdapter listener) {
         spamAndReportOption.addMouseListener(listener);
     }
-    public void addListenerNewRegisteredOption(MouseAdapter listener){
+
+    public void addListenerNewRegisteredOption(MouseAdapter listener) {
         newRegisteredOption.addMouseListener(listener);
-        
+
     }
+
+    public void addListenerRegisteredChartOption(MouseAdapter listener) {
+        registeredChartOption.addMouseListener(listener);
+    }
+
     @Override
     protected void paintChildren(Graphics grphcs) {
         Graphics2D g2 = (Graphics2D) grphcs;
@@ -517,7 +523,7 @@ public class Menu extends javax.swing.JPanel {
     private javax.swing.JLabel newRegisteredOption;
     private javax.swing.JPanel panelLogoAndTitle;
     private javax.swing.JPanel panelOption;
-    private javax.swing.JLabel registeredChartOption1;
+    private javax.swing.JLabel registeredChartOption;
     private javax.swing.JLabel spamAndReportOption;
     private javax.swing.JLabel userManagerOption;
     private javax.swing.JLabel userOnlineChartOption;

@@ -9,6 +9,7 @@ import components.GroupChatList.ViewAllAdmin.GroupChatListAllAdmin;
 import components.GroupChatList.ViewAllMember.GroupChatListAllMember;
 import components.LoginHistory.LoginHistory;
 import components.NewRegistered.NewRegistered;
+import components.RegisteredChart.FormRegisteredChart;
 import components.SpamAndReport.SpamAndReport;
 import components.userManager.ListFriend.UserManagerListFriend;
 import components.userManager.LoginHistory.UserManagerLoginHistory;
@@ -43,9 +44,12 @@ public class Main extends javax.swing.JFrame {
     private SpamAndReport spamAndReportView = null;
 
     private NewRegistered newRegisteredView = null;
-//    private UserManager userManagerView = null;
-//    private UserManager userManagerView = null;
 
+    //Form 5
+    private FormRegisteredChart formRegisteredChartView = null;
+
+//    private UserManager userManagerView = null;
+//    private UserManager userManagerView = null;
     /**
      * Creates new form Main
      */
@@ -215,6 +219,16 @@ public class Main extends javax.swing.JFrame {
             }
         }
         );
+
+        menu.addListenerRegisteredChartOption(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (formRegisteredChartView == null) {
+                    formRegisteredChartView = new FormRegisteredChart();
+                }
+                setForm(formRegisteredChartView);
+            }
+        });
     }
 
     /**
