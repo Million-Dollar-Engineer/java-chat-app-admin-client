@@ -42,11 +42,11 @@ public class PanelRegisteredChartLine extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 545, Short.MAX_VALUE)
+            .addGap(0, 914, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 396, Short.MAX_VALUE)
+            .addGap(0, 541, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -105,22 +105,23 @@ public class PanelRegisteredChartLine extends javax.swing.JPanel {
             Font font = new Font("Arial", Font.PLAIN, 14); // Thay đổi font và kích thước theo ý muốn
 
             g2.setFont(font);
-
+            g2.setColor(Color.GRAY);
+            
             // Xác định số lượng khoảng mỗi tháng
 
             // Trục tung
-
             g2.drawLine(margin, getHeight() - margin, margin, 0);
 
-            // Trục hoành
-
+            x = margin;
+            
+            g2.drawString("(user)", x-40, 25);
+            
+// Trục hoành
             g2.drawLine(margin, getHeight() - margin, getWidth() - marginWidth, getHeight() - margin);
 
-
-
+            
             x = margin + 30;
 
-            g2.setColor(Color.GRAY);
 
             int y = getHeight() - margin;
 

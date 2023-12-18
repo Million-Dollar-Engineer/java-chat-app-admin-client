@@ -6,10 +6,10 @@ package components.RegisteredChart;
 
 public class MainFormRegisteredChart extends javax.swing.JPanel {
 
-
     public MainFormRegisteredChart() {
         initComponents();
 //        show(new FormRegisteredChart());
+
     }
 
 
