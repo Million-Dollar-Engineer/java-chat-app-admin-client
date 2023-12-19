@@ -39,7 +39,7 @@ public class Menu extends javax.swing.JPanel {
         groupChatListOption = new javax.swing.JLabel();
         newRegisteredOption = new javax.swing.JLabel();
         registeredChartOption = new javax.swing.JLabel();
-        userRelatedOption1 = new javax.swing.JLabel();
+        userRelatedOption = new javax.swing.JLabel();
         userOnlineOption = new javax.swing.JLabel();
         userOnlineChartOption = new javax.swing.JLabel();
 
@@ -182,22 +182,22 @@ public class Menu extends javax.swing.JPanel {
             }
         });
 
-        userRelatedOption1.setBackground(new java.awt.Color(130, 159, 239));
-        userRelatedOption1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        userRelatedOption1.setForeground(new java.awt.Color(255, 255, 255));
-        userRelatedOption1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        userRelatedOption1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/raven/icon/3.png"))); // NOI18N
-        userRelatedOption1.setText("User Related");
-        userRelatedOption1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        userRelatedOption1.addMouseListener(new java.awt.event.MouseAdapter() {
+        userRelatedOption.setBackground(new java.awt.Color(130, 159, 239));
+        userRelatedOption.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        userRelatedOption.setForeground(new java.awt.Color(255, 255, 255));
+        userRelatedOption.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        userRelatedOption.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/raven/icon/3.png"))); // NOI18N
+        userRelatedOption.setText("User Related");
+        userRelatedOption.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        userRelatedOption.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                userRelatedOption1MouseClicked(evt);
+                userRelatedOptionMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                userRelatedOption1MouseEntered(evt);
+                userRelatedOptionMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                userRelatedOption1MouseExited(evt);
+                userRelatedOptionMouseExited(evt);
             }
         });
 
@@ -249,7 +249,7 @@ public class Menu extends javax.swing.JPanel {
             .addComponent(groupChatListOption, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(newRegisteredOption, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(registeredChartOption, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(userRelatedOption1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(userRelatedOption, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(userOnlineOption, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOptionLayout.createSequentialGroup()
                 .addContainerGap()
@@ -272,7 +272,7 @@ public class Menu extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(registeredChartOption, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(userRelatedOption1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(userRelatedOption, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(userOnlineOption, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -325,9 +325,9 @@ public class Menu extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_registeredChartOptionMouseClicked
 
-    private void userRelatedOption1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userRelatedOption1MouseClicked
+    private void userRelatedOptionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userRelatedOptionMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_userRelatedOption1MouseClicked
+    }//GEN-LAST:event_userRelatedOptionMouseClicked
 
     private void userOnlineOptionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userOnlineOptionMouseClicked
         // TODO add your handling code here:
@@ -415,20 +415,20 @@ public class Menu extends javax.swing.JPanel {
         registeredChartOption.setBackground(null);
     }//GEN-LAST:event_registeredChartOptionMouseExited
 
-    private void userRelatedOption1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userRelatedOption1MouseEntered
+    private void userRelatedOptionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userRelatedOptionMouseEntered
         // TODO add your handling code here:
 
-        userRelatedOption1.setOpaque(true);
-        userRelatedOption1.setBackground(new Color(130, 159, 239));
-        userRelatedOption1.repaint();
+        userRelatedOption.setOpaque(true);
+        userRelatedOption.setBackground(new Color(130, 159, 239));
+        userRelatedOption.repaint();
 
-    }//GEN-LAST:event_userRelatedOption1MouseEntered
+    }//GEN-LAST:event_userRelatedOptionMouseEntered
 
-    private void userRelatedOption1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userRelatedOption1MouseExited
-        userRelatedOption1.setOpaque(false);
-        userRelatedOption1.setBackground(null);
+    private void userRelatedOptionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userRelatedOptionMouseExited
+        userRelatedOption.setOpaque(false);
+        userRelatedOption.setBackground(null);
 
-    }//GEN-LAST:event_userRelatedOption1MouseExited
+    }//GEN-LAST:event_userRelatedOptionMouseExited
 
     private void userOnlineOptionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userOnlineOptionMouseEntered
         // TODO add your handling code here:
@@ -486,6 +486,13 @@ public class Menu extends javax.swing.JPanel {
         registeredChartOption.addMouseListener(listener);
     }
 
+    public void addListenerUserRelatedOption(MouseAdapter listener)
+    {
+        userRelatedOption.addMouseListener(listener);
+    }
+    
+    
+    
     @Override
     protected void paintChildren(Graphics grphcs) {
         Graphics2D g2 = (Graphics2D) grphcs;
@@ -528,6 +535,6 @@ public class Menu extends javax.swing.JPanel {
     private javax.swing.JLabel userManagerOption;
     private javax.swing.JLabel userOnlineChartOption;
     private javax.swing.JLabel userOnlineOption;
-    private javax.swing.JLabel userRelatedOption1;
+    private javax.swing.JLabel userRelatedOption;
     // End of variables declaration//GEN-END:variables
 }
