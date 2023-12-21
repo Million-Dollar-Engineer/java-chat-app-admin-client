@@ -2,14 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package components.RegisteredChart;
+package components.UserOnlineChart;
 
+import components.RegisteredChart.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FormRegisteredChart extends javax.swing.JPanel {
+public class FormUserOnlineChart extends javax.swing.JPanel {
 
-    public FormRegisteredChart() {
+    public FormUserOnlineChart() {
         initComponents();
         System.out.println("FormRegisteredChart");
         initData();
@@ -31,22 +32,22 @@ public class FormRegisteredChart extends javax.swing.JPanel {
         list.add(new ModelRegisteredChartLine("Sunday", 200));
         list.add(new ModelRegisteredChartLine("Saturday", 80));
         list.add(new ModelRegisteredChartLine("Sunday", 200));
-        chatRegisteredLine.setModel(list);
+        userOnlineChartLine.setModel(list);
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        chatRegisteredLine = new components.RegisteredChart.ChatRegisteredLine();
         jLabel1 = new javax.swing.JLabel();
-        registeredChartSearching2 = new components.RegisteredChart.RegisteredChartSearching();
+        userOnlineChartSearching2 = new components.UserOnlineChart.UserOnlineChartSearching();
+        userOnlineChartLine = new components.UserOnlineChart.UserOnlineChartLine();
 
         setBackground(new java.awt.Color(250, 250, 250));
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(127, 127, 127));
-        jLabel1.setText("Registered Chart");
+        jLabel1.setText("User Online Chart");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -54,14 +55,16 @@ public class FormRegisteredChart extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(registeredChartSearching2, javax.swing.GroupLayout.PREFERRED_SIZE, 976, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(chatRegisteredLine, javax.swing.GroupLayout.PREFERRED_SIZE, 993, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(23, 23, 23)
-                            .addComponent(jLabel1))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(userOnlineChartLine, javax.swing.GroupLayout.PREFERRED_SIZE, 987, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(userOnlineChartSearching2, javax.swing.GroupLayout.PREFERRED_SIZE, 978, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(823, 823, 823)))))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -70,17 +73,17 @@ public class FormRegisteredChart extends javax.swing.JPanel {
                 .addGap(17, 17, 17)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addComponent(registeredChartSearching2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(chatRegisteredLine, javax.swing.GroupLayout.PREFERRED_SIZE, 625, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(47, 47, 47))
+                .addComponent(userOnlineChartSearching2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(userOnlineChartLine, javax.swing.GroupLayout.PREFERRED_SIZE, 662, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(56, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private components.RegisteredChart.ChatRegisteredLine chatRegisteredLine;
     private javax.swing.JLabel jLabel1;
-    private components.RegisteredChart.RegisteredChartSearching registeredChartSearching2;
+    private components.UserOnlineChart.UserOnlineChartLine userOnlineChartLine;
+    private components.UserOnlineChart.UserOnlineChartSearching userOnlineChartSearching2;
     // End of variables declaration//GEN-END:variables
 }

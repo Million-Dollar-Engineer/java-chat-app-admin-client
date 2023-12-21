@@ -23,7 +23,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="registeredChartSearching2" alignment="1" min="-2" pref="976" max="-2" attributes="0"/>
+                  <Component id="registeredChartSearching2" min="-2" pref="976" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
@@ -44,9 +44,9 @@
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="18" max="32767" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="registeredChartSearching2" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
               <Component id="chatRegisteredLine" min="-2" pref="625" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
           </Group>
@@ -64,7 +64,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="7f" green="7f" red="7f" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="User Manager"/>
+        <Property name="text" type="java.lang.String" value="Registered Chart"/>
       </Properties>
     </Component>
     <Component class="components.RegisteredChart.RegisteredChartSearching" name="registeredChartSearching2">

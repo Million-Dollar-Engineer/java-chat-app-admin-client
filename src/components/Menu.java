@@ -494,6 +494,10 @@ public class Menu extends javax.swing.JPanel {
     {
         userOnlineOption.addMouseListener(listener);
     }
+    public void addListenerUserOnlineChartOption(MouseAdapter listener)
+    {
+        userOnlineChartOption.addMouseListener(listener);
+    }
     
     
     @Override

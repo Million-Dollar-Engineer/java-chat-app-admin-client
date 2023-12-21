@@ -12,6 +12,7 @@ import components.NewRegistered.NewRegistered;
 import components.RegisteredChart.FormRegisteredChart;
 import components.SpamAndReport.SpamAndReport;
 import components.UserOnline.UserOnline;
+import components.UserOnlineChart.FormUserOnlineChart;
 import components.UserRelated.UserRelated;
 import components.userManager.ListFriend.UserManagerListFriend;
 import components.userManager.LoginHistory.UserManagerLoginHistory;
@@ -57,6 +58,9 @@ public class Main extends javax.swing.JFrame {
     private UserOnline userOnlineView = null;
 //    private UserManager userManagerView = null;
 //    private UserManager userManagerView = null;
+
+    //Form 8
+    private FormUserOnlineChart formUserOnlineChart = null;
 
     /**
      * Creates new form Main
@@ -257,6 +261,18 @@ public class Main extends javax.swing.JFrame {
                 }
                 setForm(userOnlineView);
 
+            }
+        });
+
+        menu.addListenerUserOnlineChartOption(new MouseAdapter() {
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if(formUserOnlineChart==null)
+                {
+                    formUserOnlineChart =  new FormUserOnlineChart();
+                }
+                setForm(formUserOnlineChart);
             }
         });
     }
