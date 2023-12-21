@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package Main;
+package project;
 
 import components.GroupChatList.GroupChatList;
 import components.GroupChatList.ViewAllAdmin.GroupChatListAllAdmin;
@@ -28,8 +28,9 @@ import java.awt.event.MouseEvent;
  *
  * @author lnt09
  */
-public class Main extends javax.swing.JFrame {
+public class DashBoardMain extends javax.swing.JFrame {
 
+    private String id=null;
     // Form 1
     private UserManager userManagerView = null;
     private UserManagerLoginHistory userManagerLoginHistoryView = null;
@@ -65,11 +66,12 @@ public class Main extends javax.swing.JFrame {
     /**
      * Creates new form Main
      */
-    public Main() {
+    public DashBoardMain(String id) {
+        this.id = id;
         initComponents();
         initMoreComponent();
         setBackground(new Color(0, 0, 0, 0));
-        menu.initMoving(Main.this);
+        menu.initMoving(DashBoardMain.this);
 
         //init Layout User Manager 
         userManagerView = new UserManager();
@@ -316,12 +318,8 @@ public class Main extends javax.swing.JFrame {
             .addGroup(panelBorder2Layout.createSequentialGroup()
                 .addComponent(menu, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(panelBorder2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panelBorder2Layout.createSequentialGroup()
-                        .addGap(0, 0, 0)
-                        .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(0, 0, 0))
-                    .addGroup(panelBorder2Layout.createSequentialGroup()
-                        .addGap(0, 0, 0)
                         .addComponent(header2, javax.swing.GroupLayout.PREFERRED_SIZE, 1004, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
@@ -379,27 +377,28 @@ public class Main extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Main.class
+            java.util.logging.Logger.getLogger(DashBoardMain.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Main.class
+            java.util.logging.Logger.getLogger(DashBoardMain.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Main.class
+            java.util.logging.Logger.getLogger(DashBoardMain.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Main.class
+            java.util.logging.Logger.getLogger(DashBoardMain.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Main().setVisible(true);
+                new DashBoardMain().setVisible(true);
             }
         });
     }

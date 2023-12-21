@@ -4,6 +4,25 @@
  */
 package project;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import java.awt.event.ActionListener;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import org.json.simple.parser.ParseException;
+
 /**
  *
  * @author lnt09
@@ -85,11 +104,6 @@ public class AdminLogin extends javax.swing.JFrame {
         loginButton.setForeground(new java.awt.Color(255, 255, 255));
         loginButton.setText("Login");
         loginButton.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 0, true));
-        loginButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                loginButtonActionPerformed(evt);
-            }
-        });
 
         passwordText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -172,14 +186,79 @@ public class AdminLogin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_passwordTextActionPerformed
 
-    private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
-                // TODO add your handling code here:
-    }//GEN-LAST:event_loginButtonActionPerformed
-
     private void forgotPasswordLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_forgotPasswordLabelMouseClicked
         usernameText.setText("Bam roi");        // TODO add your handling code here:
+
     }//GEN-LAST:event_forgotPasswordLabelMouseClicked
 
+    public void addListenerButton(ActionListener listener) {
+        loginButton.addActionListener(listener);
+    }
+
+    public String callAPI() {
+        try {
+            String username = usernameText.getText();
+            String password = String.valueOf(passwordText.getPassword());
+            String apiUrl = "http://13.215.176.178:8881/user/login";
+            URL url = new URL(apiUrl);
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+
+            con.setRequestMethod("POST");
+            con.setRequestProperty("Content-Type", "application/json");
+            con.setDoOutput(true);
+
+            String postData = "{\"username\":\"" + username + "\",\"password\":\"" + password + "\"}";
+
+            try (DataOutputStream wr = new DataOutputStream(con.getOutputStream())) {
+                byte[] postDataBytes = postData.getBytes(StandardCharsets.UTF_8);
+                wr.write(postDataBytes);
+            }
+
+            int resCode = con.getResponseCode();
+
+            System.out.println("Response Code:" + resCode);
+
+//            JsonParser parser = new JsonParser();
+//            JsonObject jsonObject = parser.parse(res).getAsJsonObject();
+//            System.out.println("Data: "+jsonObject);
+            if (200 == resCode) {
+
+                BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                String resBuf = "";
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    resBuf = resBuf + line;
+                }
+                JSONParser parser = new JSONParser();
+                JSONObject res = (JSONObject) parser.parse(resBuf);
+                System.out.println("Data" + res);
+                con.disconnect();
+
+                String id = String.valueOf(res.get("id"));
+                return id;
+
+            } else {
+                con.disconnect();
+                JOptionPane.showMessageDialog(null, "Invalid username or password", "Notify", JOptionPane.INFORMATION_MESSAGE);
+                return null;
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * @param args the command line arguments
+     */
+    /**
+     * @param args the command line arguments
+     */
+    /**
+     * @param args the command line arguments
+     */
     /**
      * @param args the command line arguments
      */
@@ -227,4 +306,24 @@ public class AdminLogin extends javax.swing.JFrame {
     private javax.swing.JPasswordField passwordText;
     private javax.swing.JTextField usernameText;
     // End of variables declaration//GEN-END:variables
+}
+
+class User {
+
+    private String username;
+    private String password;
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
 }
