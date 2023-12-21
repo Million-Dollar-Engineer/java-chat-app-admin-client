@@ -490,7 +490,10 @@ public class Menu extends javax.swing.JPanel {
     {
         userRelatedOption.addMouseListener(listener);
     }
-    
+    public void addListenerUserOnlineOption(MouseAdapter listener)
+    {
+        userOnlineOption.addMouseListener(listener);
+    }
     
     
     @Override

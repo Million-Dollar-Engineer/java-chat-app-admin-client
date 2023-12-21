@@ -11,6 +11,7 @@ import components.LoginHistory.LoginHistory;
 import components.NewRegistered.NewRegistered;
 import components.RegisteredChart.FormRegisteredChart;
 import components.SpamAndReport.SpamAndReport;
+import components.UserOnline.UserOnline;
 import components.UserRelated.UserRelated;
 import components.userManager.ListFriend.UserManagerListFriend;
 import components.userManager.LoginHistory.UserManagerLoginHistory;
@@ -49,12 +50,14 @@ public class Main extends javax.swing.JFrame {
     //Form 5
     private FormRegisteredChart formRegisteredChartView = null;
 
-    
     //Form 6
     private UserRelated userRelatedView = null;
-    
+
+    //Form 7
+    private UserOnline userOnlineView = null;
 //    private UserManager userManagerView = null;
 //    private UserManager userManagerView = null;
+
     /**
      * Creates new form Main
      */
@@ -234,18 +237,27 @@ public class Main extends javax.swing.JFrame {
                 setForm(formRegisteredChartView);
             }
         });
-        
-        menu.addListenerUserRelatedOption(new MouseAdapter(){
+
+        menu.addListenerUserRelatedOption(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e){
-                if(userRelatedView==null)
-                {
+            public void mouseClicked(MouseEvent e) {
+                if (userRelatedView == null) {
                     userRelatedView = new UserRelated();
-                    
+
                 }
                 setForm(userRelatedView);
             }
-        
+        });
+
+        menu.addListenerUserOnlineOption(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (userOnlineView == null) {
+                    userOnlineView = new UserOnline();
+                }
+                setForm(userOnlineView);
+
+            }
         });
     }
 
