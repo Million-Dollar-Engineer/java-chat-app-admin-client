@@ -398,7 +398,7 @@ public class DashBoardMain extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new DashBoardMain().setVisible(true);
+             //   new DashBoardMain("").setVisible(true);
             }
         });
     }

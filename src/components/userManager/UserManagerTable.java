@@ -1,6 +1,7 @@
 
 package components.userManager;
 
+import Interface.User;
 import java.awt.Color;
 import java.awt.Component;
 import javax.swing.JLabel;
@@ -44,6 +45,16 @@ public class UserManagerTable extends JTable {
 //                 return new JLabel("Testing");
 //            }
 //        });
+    }
+    
+    public void clearData()
+    {
+        DefaultTableModel model = (DefaultTableModel) getModel();
+        model.setRowCount(0);
+    }
+    public void addUserRow(User user)
+    {
+        addRow(new Object[]{user.username,user.password,user.fullname, user.address, user.dateOfBirth,user.sex,user.email,user.lastActive,user.status});
     }
     
     public void initComponents(){

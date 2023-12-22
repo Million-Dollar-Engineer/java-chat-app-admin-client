@@ -40,14 +40,21 @@ public class searching extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         sortBy = new javax.swing.JComboBox<>();
         searchButton = new javax.swing.JButton();
-        refreshButton = new javax.swing.JButton();
         optionSearch = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
+        order = new javax.swing.JComboBox<>();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(127, 127, 127));
         jLabel2.setText("Search by:");
+
+        searchText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchTextActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(127, 127, 127));
@@ -72,11 +79,6 @@ public class searching extends javax.swing.JPanel {
             }
         });
 
-        refreshButton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        refreshButton.setForeground(new java.awt.Color(127, 127, 127));
-        refreshButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/raven/icon/4.png"))); // NOI18N
-        refreshButton.setText("Refresh");
-
         optionSearch.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         optionSearch.setForeground(new java.awt.Color(127, 127, 127));
         optionSearch.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "name", "user", "status" }));
@@ -86,6 +88,14 @@ public class searching extends javax.swing.JPanel {
             }
         });
 
+        jLabel4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(127, 127, 127));
+        jLabel4.setText("Order:");
+
+        order.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        order.setForeground(new java.awt.Color(127, 127, 127));
+        order.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "asc", "desc" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -93,17 +103,19 @@ public class searching extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(40, 40, 40)
                 .addComponent(jLabel2)
-                .addGap(105, 105, 105)
-                .addComponent(searchText, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(107, 107, 107)
+                .addComponent(searchText, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(sortBy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(order, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(refreshButton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addContainerGap(83, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(130, 130, 130)
@@ -112,16 +124,19 @@ public class searching extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(sortBy, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                    .addComponent(searchText, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(searchText, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(refreshButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(order))
                 .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -143,6 +158,10 @@ public class searching extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_optionSearchActionPerformed
 
+    private void searchTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchTextActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchTextActionPerformed
+
 //    public void initComoponents() {
 //        DefaultComboBoxModel optionSearchModel = new DefaultComboBoxModel();
 //        optionSearchModel.addElement("Name");
@@ -161,8 +180,9 @@ public class searching extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JComboBox<String> optionSearch;
-    private javax.swing.JButton refreshButton;
+    private javax.swing.JComboBox<String> order;
     private javax.swing.JButton searchButton;
     private project.SearchText searchText;
     private javax.swing.JComboBox<String> sortBy;
@@ -177,7 +197,20 @@ public class searching extends javax.swing.JPanel {
             return null;
         }
     }
-
+    public String getOrder()
+    {
+        Object orderSelection = order.getSelectedItem();
+        if(orderSelection!=null)
+        {
+            return orderSelection.toString();
+        }
+        else
+        {
+            return null;
+        }
+    }
+    
+    
     public String getOptionSearch() {
         Object selectedItem = optionSearch.getSelectedItem();
         if (selectedItem != null) {
@@ -197,7 +230,4 @@ public class searching extends javax.swing.JPanel {
         searchButton.addActionListener(listener);
     }
 
-    public void addListenerRefreshButton(ActionListener listener) {
-        refreshButton.addActionListener(listener);
-    }
 }
