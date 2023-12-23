@@ -171,7 +171,14 @@ public class UserManager extends javax.swing.JPanel {
             try {
                 Boolean result = get();
                 if (result) {
-                    JOptionPane.showMessageDialog(null, "Load users successfully", "Successfully", JOptionPane.INFORMATION_MESSAGE);
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            JOptionPane.showMessageDialog(null, "Load users successfully", "Successfully", JOptionPane.INFORMATION_MESSAGE);
+
+                        }
+                    }).start();
+                    
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -248,6 +255,10 @@ public class UserManager extends javax.swing.JPanel {
         }
     }
 
+    public String getId() {
+        return userCRUD.getId();
+    }
+
     public String getUsername() {
         return userCRUD.getUsernameText();
     }
@@ -278,13 +289,13 @@ public class UserManager extends javax.swing.JPanel {
                     String email = getStringValue(userManagerTable.getValueAt(selectedRow, 7));
                     String status = getStringValue(userManagerTable.getValueAt(selectedRow, 9));
                     // In thông tin của dòng được chọn
-                    userCRUD.setInfo(id,username, fullname, password, dateOfBirth, sex, email, address, status, true);
+                    userCRUD.setInfo(id, username, fullname, password, dateOfBirth, sex, email, address, status, true);
                 }
             }
         }
     }
-    public static void main(String[] args)
-    {
+
+    public static void main(String[] args) {
         new UserManager().setVisible(true);
     }
 

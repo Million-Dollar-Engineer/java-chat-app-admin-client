@@ -4,14 +4,29 @@
  */
 package components.userManager.ListFriend;
 
+import Interface.User;
+import com.google.gson.Gson;
 import components.userManager.LoginHistory.*;
 import components.GroupChatList.ViewAllMember.*;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.MouseAdapter;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.SwingConstants;
+import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableCellRenderer;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 /**
  *
@@ -24,13 +39,16 @@ public class UserManagerListFriend extends javax.swing.JPanel {
      */
     private String username;
 
-    public UserManagerListFriend(String name) {
+    private String id = null;
+
+    public UserManagerListFriend(String id, String name) {
+        this.id = id;
         initComponents();
 
         // Add fake data
         try {
             for (int i = 0; i < 50; i++) {
-                userManagerListFriendTable.addRow(new Object[]{"lenguyenthai123","Lê Nguyên Thái","202 Nguyễn Trọng Kỷ","2003/06/16","Male","lnt0995449235@gmail.com","2023/02/12","Online",true});
+                userManagerListFriendTable.addRow(new Object[]{"lenguyenthai123", "Lê Nguyên Thái", "202 Nguyễn Trọng Kỷ", "2003/06/16", "Male", "lnt0995449235@gmail.com", "2023/02/12", "Online", true});
             }
             usernameText.setText(name);
         } catch (Exception err) {
@@ -39,6 +57,71 @@ public class UserManagerListFriend extends javax.swing.JPanel {
         }
 //        username = name;
 
+        new CallAPIListFriend().execute();
+    }
+
+    private class CallAPIListFriend extends SwingWorker<String, User[]> {
+
+        @Override
+        protected String doInBackground() {
+            try {
+                String api = "http://13.215.176.178:8881/admin/friend-list/" + id;
+
+                URL url = new URL(api);
+                HttpURLConnection con = (HttpURLConnection) url.openConnection();
+
+                con.setRequestMethod("GET");
+                con.setRequestProperty("Content-Type", "application/json");
+                con.setDoOutput(true);
+
+                int resCode = con.getResponseCode();
+                System.out.println("Testing code: " + HttpURLConnection.HTTP_ACCEPTED);
+                if (resCode == HttpURLConnection.HTTP_OK) {
+                    System.out.println("Vao day");
+                    String resBuf = "";
+                    String line = "";
+                    try (BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream()))) {
+                        while ((line = reader.readLine()) != null) {
+                            resBuf += line;
+                        }
+                    } catch (IOException ex) {
+                        Logger.getLogger(UserManagerListFriend.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    System.out.println("Data raw: " + resBuf);
+
+                    JSONParser par = new JSONParser();
+                    JSONObject res = (JSONObject) par.parse(resBuf);
+                    JSONArray list = (JSONArray) res.get("friendList");
+
+                    String dataJson = list.toString();
+
+                    Gson gson = new Gson();
+                    User[] users = gson.fromJson(dataJson, User[].class);
+
+                    publish(users);
+
+                    con.disconnect();
+
+                    return "Done";
+                }
+                con.disconnect();
+                return "Failed";
+            } catch (ParseException e) {
+
+            } catch (IOException ex) {
+                Logger.getLogger(UserManagerListFriend.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return "failed";
+        }
+
+        @Override
+        protected void process(List<User[]> chunks) {
+            User[] data = chunks.get(chunks.size() - 1);
+            for (User user : data) {
+                userManagerListFriendTable.addUserRow(user);
+            }
+        }
+        
     }
 
     /**
@@ -81,14 +164,14 @@ public class UserManagerListFriend extends javax.swing.JPanel {
 
             },
             new String [] {
-                "User Name", "Full Name", "Address", "Date of Birth", "Sex", "Email", "Last Loign", "Status", "Ban"
+                "Id", "User Name", "Full Name", "Address", "Date of Birth", "Sex", "Email", "Last Loign", "Status"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
+                true, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -100,9 +183,6 @@ public class UserManagerListFriend extends javax.swing.JPanel {
             }
         });
         jScrollPane1.setViewportView(userManagerListFriendTable);
-        if (userManagerListFriendTable.getColumnModel().getColumnCount() > 0) {
-            userManagerListFriendTable.getColumnModel().getColumn(8).setPreferredWidth(20);
-        }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

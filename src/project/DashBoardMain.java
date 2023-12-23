@@ -30,7 +30,7 @@ import java.awt.event.MouseEvent;
  */
 public class DashBoardMain extends javax.swing.JFrame {
 
-    private String id=null;
+    private String id = null;
     // Form 1
     private UserManager userManagerView = null;
     private UserManagerLoginHistory userManagerLoginHistoryView = null;
@@ -103,10 +103,12 @@ public class DashBoardMain extends javax.swing.JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
+                String id = userManagerView.getId();
                 String username = userManagerView.getUsername();
-                if (!("".equals(username))) {
+
+                if (!("".equals(id))) {
                     try {
-                        userManagerListFriendView = new UserManagerListFriend(username);
+                        userManagerListFriendView = new UserManagerListFriend(id,username);
                         userManagerListFriendView.addListenerPreviousPageUserManager(new MouseAdapter() {
                             @Override
                             public void mouseClicked(MouseEvent e) {
@@ -270,9 +272,8 @@ public class DashBoardMain extends javax.swing.JFrame {
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                if(formUserOnlineChart==null)
-                {
-                    formUserOnlineChart =  new FormUserOnlineChart();
+                if (formUserOnlineChart == null) {
+                    formUserOnlineChart = new FormUserOnlineChart();
                 }
                 setForm(formUserOnlineChart);
             }
@@ -398,7 +399,7 @@ public class DashBoardMain extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-             //   new DashBoardMain("").setVisible(true);
+                //   new DashBoardMain("").setVisible(true);
             }
         });
     }

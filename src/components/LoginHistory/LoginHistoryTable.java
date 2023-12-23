@@ -1,5 +1,7 @@
 package components.LoginHistory;
 
+import Interface.LoginHistoryUser;
+import Interface.User;
 import components.userManager.*;
 import java.awt.Color;
 import java.awt.Component;
@@ -16,7 +18,7 @@ public class LoginHistoryTable extends JTable {
     ListSelectionModel selectionModel;
 
     public LoginHistoryTable() {
-        
+
         setShowHorizontalLines(true);
         setGridColor(new Color(230, 230, 230));
         setBackground(Color.WHITE);
@@ -34,6 +36,15 @@ public class LoginHistoryTable extends JTable {
         });
         setBorder(null);
         initComponents();
+    }
+
+    public void clearData() {
+        DefaultTableModel model = (DefaultTableModel) getModel();
+        model.setRowCount(0);
+    }
+
+    public void addLoginHistoryUserRow(LoginHistoryUser user) {
+        addRow(new Object[]{user.loginTime, user.username,user.fullname, user.ip});
     }
 
     public void initComponents() {
