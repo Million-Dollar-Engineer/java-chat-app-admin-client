@@ -1,6 +1,6 @@
-
 package components.GroupChatList.ViewAllAdmin;
 
+import Interface.User;
 import components.GroupChatList.ViewAllMember.*;
 import components.GroupChatList.*;
 import java.awt.Color;
@@ -14,25 +14,23 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 public class GroupChatListAllAdminTable extends JTable {
-    
+
     ListSelectionModel selectionModel;
-    
-    public GroupChatListAllAdminTable()
-    {
+
+    public GroupChatListAllAdminTable() {
         setShowHorizontalLines(true);
-        setGridColor(new Color(230,230,230));
+        setGridColor(new Color(230, 230, 230));
         setBackground(Color.WHITE);
         setRowHeight(40);
         getTableHeader().setReorderingAllowed(false);
-        getTableHeader().setDefaultRenderer(new DefaultTableCellRenderer(){
+        getTableHeader().setDefaultRenderer(new DefaultTableCellRenderer() {
             @Override
-            public Component getTableCellRendererComponent (JTable jtable, Object o, boolean bln, boolean bln1,int i,int i1){
-                 GroupChatListAllMemberTableHeader header = new GroupChatListAllMemberTableHeader(o + "");
-                 if(i1==1)
-                 {
-                     header.setHorizontalAlignment(JLabel.CENTER);
-                 }
-                 return header;
+            public Component getTableCellRendererComponent(JTable jtable, Object o, boolean bln, boolean bln1, int i, int i1) {
+                GroupChatListAllMemberTableHeader header = new GroupChatListAllMemberTableHeader(o + "");
+                if (i1 == 1) {
+                    header.setHorizontalAlignment(JLabel.CENTER);
+                }
+                return header;
             }
         });
         setBorder(null);
@@ -48,18 +46,26 @@ public class GroupChatListAllAdminTable extends JTable {
 //            }
 //        });
     }
-    
-    public void initComponents(){
+
+    public void clearData() {
+        DefaultTableModel model = (DefaultTableModel) getModel();
+        model.setRowCount(0);
+    }
+
+    public void addUserRow(User user) {
+        addRow(new Object[]{user.id, user.username, user.fullname, user.address, user.dateOfBirth, user.sex, user.email, user.lastActive, user.status});
+    }
+
+    public void initComponents() {
         selectionModel = getSelectionModel();
         selectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
-    public void addListener(ListSelectionListener listener)
-    {
+
+    public void addListener(ListSelectionListener listener) {
         selectionModel.addListSelectionListener(listener);
     }
 
-    public void addRow(Object[] row)
-    {
+    public void addRow(Object[] row) {
         DefaultTableModel model = (DefaultTableModel) getModel();
         model.addRow(row);
     }

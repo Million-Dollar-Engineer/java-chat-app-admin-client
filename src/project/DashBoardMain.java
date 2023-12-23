@@ -186,10 +186,13 @@ public class DashBoardMain extends javax.swing.JFrame {
                     groupChatListView.addListenerViewListOfAllAdminButton(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
+                            String groupId = groupChatListView.getGroupIdText();
                             String groupName = groupChatListView.getGroupNametext();
+                            System.out.println("Bam: " + groupId + "   " + groupName);
+
                             if (!("".equals(groupName))) {
 
-                                groupChatListAllAdminView = new GroupChatListAllAdmin(groupName);
+                                groupChatListAllAdminView = new GroupChatListAllAdmin(groupId, groupName);
 
                                 // Lấy ra username => call API => retreive data;
                                 groupChatListAllAdminView.addListenerPreviousPageGroupChat(new MouseAdapter() {

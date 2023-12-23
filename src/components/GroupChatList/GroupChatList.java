@@ -74,7 +74,7 @@ public class GroupChatList extends javax.swing.JPanel {
 
                 String sortBy = groupChatListSearching.getSortBy();
                 if (sortBy.equals("creation date")) {
-                    sortBy = "created_at";
+                    sortBy = "time";
                 }
 
                 String name = groupChatListSearching.getSearchText();

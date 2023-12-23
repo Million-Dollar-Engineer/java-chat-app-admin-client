@@ -47,8 +47,7 @@ public class GroupChatListAllMemberTable extends JTable {
 //            }
 //        });
     }
-     public void clearData()
-    {
+    public void clearData() {
         DefaultTableModel model = (DefaultTableModel) getModel();
         model.setRowCount(0);
     }

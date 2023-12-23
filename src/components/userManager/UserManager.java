@@ -319,7 +319,7 @@ public class UserManager extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Id", "User", "Password", "Full Name", "Address", "Date of Birth", "Sex", "Email", "Last Login", "Status"
+                "Id", "User Name", "Password", "Full Name", "Address", "Date of Birth", "Sex", "Email", "Last Login", "Status"
             }
         ) {
             Class[] types = new Class [] {

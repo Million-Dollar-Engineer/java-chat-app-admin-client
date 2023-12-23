@@ -24,13 +24,13 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="22" pref="22" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jScrollPane2" max="32767" attributes="0"/>
-                  <Component id="spamAndReportSearching2" max="32767" attributes="0"/>
+                  <Component id="spamAndReportSearching" max="32767" attributes="0"/>
+                  <Component id="spamAndReportBan" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
-                  <Component id="spamAndReportBan" max="32767" attributes="0"/>
+                  <Component id="jScrollPane2" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -42,7 +42,7 @@
               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" pref="22" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="spamAndReportSearching2" min="-2" max="-2" attributes="0"/>
+              <Component id="spamAndReportSearching" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jScrollPane2" min="-2" pref="312" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -79,16 +79,17 @@
         <Component class="components.SpamAndReport.SpamAndReportTable" name="spamAndReportTable">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="4" rowCount="0">
-                <Column editable="false" title="Reported User" type="java.lang.Object"/>
-                <Column editable="false" title="Content" type="java.lang.String"/>
-                <Column editable="false" title="Creation Date" type="java.lang.Object"/>
+              <Table columnCount="5" rowCount="0">
+                <Column editable="false" title="Id" type="java.lang.String"/>
                 <Column editable="false" title="Reporter" type="java.lang.String"/>
+                <Column editable="false" title="Accused" type="java.lang.String"/>
+                <Column editable="false" title="Reason" type="java.lang.String"/>
+                <Column editable="true" title="Create At" type="java.lang.String"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
               <TableColumnModel selectionModel="0">
-                <Column maxWidth="200" minWidth="200" prefWidth="200" resizable="true">
+                <Column maxWidth="50" minWidth="50" prefWidth="50" resizable="true">
                   <Title/>
                   <Editor/>
                   <Renderer/>
@@ -98,12 +99,17 @@
                   <Editor/>
                   <Renderer/>
                 </Column>
-                <Column maxWidth="100" minWidth="100" prefWidth="100" resizable="true">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                   <Title/>
                   <Editor/>
                   <Renderer/>
                 </Column>
-                <Column maxWidth="200" minWidth="200" prefWidth="200" resizable="true">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                   <Title/>
                   <Editor/>
                   <Renderer/>
@@ -123,7 +129,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="components.SpamAndReport.SpamAndReportSearching" name="spamAndReportSearching2">
+    <Component class="components.SpamAndReport.SpamAndReportSearching" name="spamAndReportSearching">
     </Component>
     <Component class="components.SpamAndReport.SpamAndReportBan" name="spamAndReportBan">
     </Component>
