@@ -1,6 +1,7 @@
-
 package components.GroupChatList;
 
+import Interface.GroupChat;
+import Interface.LoginHistoryUser;
 import java.awt.Color;
 import java.awt.Component;
 import javax.swing.JLabel;
@@ -12,24 +13,23 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 public class GroupChatListTable extends JTable {
-    
+
     ListSelectionModel selectionModel;
-    public GroupChatListTable()
-    {
+
+    public GroupChatListTable() {
         setShowHorizontalLines(true);
-        setGridColor(new Color(230,230,230));
+        setGridColor(new Color(230, 230, 230));
         setBackground(Color.WHITE);
         setRowHeight(40);
         getTableHeader().setReorderingAllowed(false);
-        getTableHeader().setDefaultRenderer(new DefaultTableCellRenderer(){
+        getTableHeader().setDefaultRenderer(new DefaultTableCellRenderer() {
             @Override
-            public Component getTableCellRendererComponent (JTable jtable, Object o, boolean bln, boolean bln1,int i,int i1){
-                 GroupChatListTableHeader header = new GroupChatListTableHeader(o + "");
-                 if(i1==1)
-                 {
-                     header.setHorizontalAlignment(JLabel.CENTER);
-                 }
-                 return header;
+            public Component getTableCellRendererComponent(JTable jtable, Object o, boolean bln, boolean bln1, int i, int i1) {
+                GroupChatListTableHeader header = new GroupChatListTableHeader(o + "");
+                if (i1 == 1) {
+                    header.setHorizontalAlignment(JLabel.CENTER);
+                }
+                return header;
             }
         });
         setBorder(null);
@@ -45,18 +45,26 @@ public class GroupChatListTable extends JTable {
 //            }
 //        });
     }
-    
-    public void initComponents(){
+
+    public void clearData() {
+        DefaultTableModel model = (DefaultTableModel) getModel();
+        model.setRowCount(0);
+    }
+
+    public void addGroupChatRow(GroupChat group) {
+        addRow(new Object[]{group.id, group.name, group.createAt, group.updateAt,group.deleted});
+    }
+
+    public void initComponents() {
         selectionModel = getSelectionModel();
         selectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
-    public void addListener(ListSelectionListener listener)
-    {
+
+    public void addListener(ListSelectionListener listener) {
         selectionModel.addListSelectionListener(listener);
     }
 
-    public void addRow(Object[] row)
-    {
+    public void addRow(Object[] row) {
         DefaultTableModel model = (DefaultTableModel) getModel();
         model.addRow(row);
     }

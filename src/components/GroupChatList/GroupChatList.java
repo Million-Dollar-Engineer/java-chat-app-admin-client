@@ -4,14 +4,24 @@
  */
 package components.GroupChatList;
 
+import Interface.GroupChat;
+import com.google.gson.Gson;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.SwingConstants;
+import javax.swing.SwingWorker;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
+import org.json.simple.JSONObject;
+import java.net.*;
+import java.net.http.*;
+import java.util.List;
+import org.json.simple.JSONArray;
+import org.json.simple.parser.JSONParser;
 
 /**
  *
@@ -25,27 +35,12 @@ public class GroupChatList extends javax.swing.JPanel {
     public GroupChatList() {
         initComponents();
 
-        groupChatListTable.addRow(new Object[]{"2003/12/02", "Super Kamen Rider", "20", "3"});
-        groupChatListTable.addRow(new Object[]{"2003/12/02", "Super Kamen Rider", "20", "3"});
-        groupChatListTable.addRow(new Object[]{"2003/12/02", "Super Kamen Rider", "20", "3"});
-        groupChatListTable.addRow(new Object[]{"2003/12/02", "Super Kamen Rider", "20", "3"});
-        groupChatListTable.addRow(new Object[]{"2003/12/02", "Super Kamen Rider", "20", "3"});
-        groupChatListTable.addRow(new Object[]{"2003/12/02", "Super Kamen Rider", "20", "3"});
-        groupChatListTable.addRow(new Object[]{"2003/12/02", "Super Kamen Rider", "20", "3"});
-        groupChatListTable.addRow(new Object[]{"2003/12/02", "Super Kamen Rider", "20", "3"});
-        groupChatListTable.addRow(new Object[]{"2003/12/02", "Super Kamen Rider", "20", "3"});
-        groupChatListTable.addRow(new Object[]{"2003/12/02", "Super Kamen Rider", "20", "3"});
-        groupChatListTable.addRow(new Object[]{"2003/12/02", "Super Kamen Rider", "20", "3"});
-        groupChatListTable.addRow(new Object[]{"2003/12/02", "Super Kamen Rider", "20", "3"});
-        groupChatListTable.addRow(new Object[]{"2003/12/02", "Super Kamen Rider", "20", "3"});
-        groupChatListTable.addRow(new Object[]{"2003/12/02", "Super Kamen Rider", "20", "3"});
-        groupChatListTable.addRow(new Object[]{"2003/12/02", "Super Kamen Rider", "20", "3"});
-        groupChatListTable.addRow(new Object[]{"2003/12/02", "Super Kamen Rider", "20", "3"});
-        groupChatListTable.addRow(new Object[]{"2003/12/02", "Super Kamen Rider", "20", "3"});
-        groupChatListTable.addRow(new Object[]{"2003/12/02", "Super Kamen Rider", "20", "3"});
-        groupChatListTable.addRow(new Object[]{"2003/12/02", "Super Kamen Rider", "20", "3"});
-        groupChatListTable.addRow(new Object[]{"2003/12/02", "Super Kamen Rider", "20", "3"});
-        groupChatListTable.addRow(new Object[]{"2003/12/02", "Super Kamen Rider", "20", "3"});
+//        groupChatListTable.addRow(new Object[]{"2003/12/02", "Super Kamen Rider", "20", "3"});
+//        groupChatListTable.addRow(new Object[]{"2003/12/02", "Super Kamen Rider", "20", "3"});
+//        groupChatListTable.addRow(new Object[]{"2003/12/02", "Super Kamen Rider", "20", "3"});
+//        groupChatListTable.addRow(new Object[]{"2003/12/02", "Super Kamen Rider", "20", "3"});
+//        groupChatListTable.addRow(new Object[]{"2003/12/02", "Super Kamen Rider", "20", "3"});
+//        groupChatListTable.addRow(new Object[]{"2003/12/02", "Super Kamen Rider", "20", "3"});
 
         groupChatListTable.addListener(new ListenerTable());
 
@@ -57,6 +52,80 @@ public class GroupChatList extends javax.swing.JPanel {
             DefaultTableCellRenderer leftRenderer = new DefaultTableCellRenderer();
             leftRenderer.setHorizontalAlignment(SwingConstants.LEFT);
             groupChatListTable.getColumnModel().getColumn(i).setCellRenderer(leftRenderer);
+        }
+
+        // Inital
+        new CallAPIGroupChatSearching().execute();
+
+        groupChatListSearching.addListenerSearchButton(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new CallAPIGroupChatSearching().execute();
+            }
+        }
+        );
+    }
+
+    private class CallAPIGroupChatSearching extends SwingWorker<String, GroupChat[]> {
+
+        @Override
+        public String doInBackground() {
+            try {
+
+                String sortBy = groupChatListSearching.getSortBy();
+                if (sortBy.equals("creation date")) {
+                    sortBy = "created_at";
+                }
+
+                String name = groupChatListSearching.getSearchText();
+
+                String api = "http://13.215.176.178:8881/admin/group-chat" + "?sortBy=" + sortBy + "&name=" + name;
+
+                HttpClient client = HttpClient.newHttpClient();
+                HttpRequest req = HttpRequest.newBuilder()
+                        .uri(new URI(api))
+                        .GET()
+                        .build();
+
+                HttpResponse<String> res = client.send(req, HttpResponse.BodyHandlers.ofString());
+
+                System.out.println("Response Code: " + res.statusCode());
+//                System.out.println("Data: "+ res.body());
+                String body = res.body();
+                if (res.statusCode() == 200) {
+                    System.out.println("Call API thanh cong");
+
+                    JSONParser par = new JSONParser();
+                    JSONObject data = (JSONObject) par.parse(body);
+                    JSONArray list = (JSONArray) data.get("groupList");
+                    String json = list.toString();
+
+                    Gson gson = new Gson();
+                    GroupChat[] groups = gson.fromJson(json, GroupChat[].class);
+
+                    publish(groups);
+
+                    System.out.println("Data: " + list);
+
+                    return "Done";
+
+                } else {
+                    System.out.println("Call API Fail");
+                    return "Failed";
+                }
+            } catch (Throwable e) {
+                e.printStackTrace();
+            }
+            return "Failed";
+        }
+
+        @Override
+        public void process(List<GroupChat[]> chunks) {
+            groupChatListTable.clearData();
+            GroupChat[] data = chunks.get(chunks.size() - 1);
+            for (GroupChat group : data) {
+                groupChatListTable.addGroupChatRow(group);
+            }
         }
     }
 
@@ -72,7 +141,7 @@ public class GroupChatList extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         groupChatListTable = new components.GroupChatList.GroupChatListTable();
-        groupChatListSearching2 = new components.GroupChatList.GroupChatListSearching();
+        groupChatListSearching = new components.GroupChatList.GroupChatListSearching();
         groupChatListForward = new components.GroupChatList.GroupChatListForward();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -88,11 +157,11 @@ public class GroupChatList extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Creation Date", "Group Name", "Number of Member", "Number of Admin"
+                "Id ", "Group Name", "Created At", "Updated At"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false
@@ -109,9 +178,9 @@ public class GroupChatList extends javax.swing.JPanel {
         groupChatListTable.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jScrollPane2.setViewportView(groupChatListTable);
         if (groupChatListTable.getColumnModel().getColumnCount() > 0) {
-            groupChatListTable.getColumnModel().getColumn(0).setMinWidth(150);
-            groupChatListTable.getColumnModel().getColumn(0).setPreferredWidth(150);
-            groupChatListTable.getColumnModel().getColumn(0).setMaxWidth(150);
+            groupChatListTable.getColumnModel().getColumn(0).setMinWidth(50);
+            groupChatListTable.getColumnModel().getColumn(0).setPreferredWidth(50);
+            groupChatListTable.getColumnModel().getColumn(0).setMaxWidth(50);
             groupChatListTable.getColumnModel().getColumn(1).setMinWidth(450);
             groupChatListTable.getColumnModel().getColumn(1).setPreferredWidth(450);
             groupChatListTable.getColumnModel().getColumn(1).setMaxWidth(450);
@@ -124,7 +193,7 @@ public class GroupChatList extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(groupChatListSearching2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(groupChatListSearching, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
                     .addComponent(jScrollPane2)
                     .addComponent(groupChatListForward, javax.swing.GroupLayout.DEFAULT_SIZE, 949, Short.MAX_VALUE))
@@ -136,7 +205,7 @@ public class GroupChatList extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(groupChatListSearching2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(groupChatListSearching, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -154,8 +223,6 @@ public class GroupChatList extends javax.swing.JPanel {
 
     }
 
-    
-    
     protected void paintComponent(Graphics grphcs) {
         Graphics2D g2 = (Graphics2D) grphcs;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -166,7 +233,7 @@ public class GroupChatList extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private components.GroupChatList.GroupChatListForward groupChatListForward;
-    private components.GroupChatList.GroupChatListSearching groupChatListSearching2;
+    private components.GroupChatList.GroupChatListSearching groupChatListSearching;
     private components.GroupChatList.GroupChatListTable groupChatListTable;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -180,11 +247,12 @@ public class GroupChatList extends javax.swing.JPanel {
         }
     }
 
-    public String getGroupNametext()
-    {
+    public String getGroupNametext() {
         return groupChatListForward.getGroupNameText();
     }
-    
+    public String getGroupIdText() {
+        return groupChatListForward.getGroupIdText();
+    }
     public class ListenerTable implements ListSelectionListener {
 
         @Override
@@ -194,10 +262,14 @@ public class GroupChatList extends javax.swing.JPanel {
                 if (selectedRow != -1) {
                     // Lấy dữ liệu từ dòng được chọn
                     String groupName = getStringValue(groupChatListTable.getValueAt(selectedRow, 1));
+                    String groupId = getStringValue(groupChatListTable.getValueAt(selectedRow, 0));
 
                     System.out.println(groupName);
+                    System.out.println(groupId);
                     // In thông tin của dòng được chọn
                     groupChatListForward.setGroupNameText(groupName);
+                    groupChatListForward.setGroupIdText(groupId);
+
                 }
             }
         }

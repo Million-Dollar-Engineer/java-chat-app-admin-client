@@ -175,10 +175,8 @@ public class UserManager extends javax.swing.JPanel {
                         @Override
                         public void run() {
                             JOptionPane.showMessageDialog(null, "Load users successfully", "Successfully", JOptionPane.INFORMATION_MESSAGE);
-
                         }
                     }).start();
-                    
                 }
             } catch (Exception e) {
                 e.printStackTrace();

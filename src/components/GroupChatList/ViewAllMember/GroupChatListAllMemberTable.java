@@ -1,6 +1,7 @@
 
 package components.GroupChatList.ViewAllMember;
 
+import Interface.User;
 import components.GroupChatList.*;
 import java.awt.Color;
 import java.awt.Component;
@@ -46,7 +47,15 @@ public class GroupChatListAllMemberTable extends JTable {
 //            }
 //        });
     }
-    
+     public void clearData()
+    {
+        DefaultTableModel model = (DefaultTableModel) getModel();
+        model.setRowCount(0);
+    }
+    public void addUserRow(User user)
+    {
+        addRow(new Object[]{user.id,user.username,user.fullname, user.address, user.dateOfBirth,user.sex,user.email,user.lastActive,user.status});
+    }
     public void initComponents(){
         selectionModel = getSelectionModel();
         selectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

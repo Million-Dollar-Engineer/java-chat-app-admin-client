@@ -17,6 +17,7 @@ public class GroupChatListForward extends javax.swing.JPanel {
      */
     public GroupChatListForward() {
         initComponents();
+        groupIdText.setVisible(false);
     }
 
     /**
@@ -31,7 +32,8 @@ public class GroupChatListForward extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         groupNameText = new javax.swing.JLabel();
         viewListOfAllAdmin = new javax.swing.JButton();
-        viewListOfAllMember = new javax.swing.JButton();
+        viewListOfAllMemberButton = new javax.swing.JButton();
+        groupIdText = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -48,10 +50,10 @@ public class GroupChatListForward extends javax.swing.JPanel {
         viewListOfAllAdmin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/raven/icon/8.png"))); // NOI18N
         viewListOfAllAdmin.setText("View List of All Admin");
 
-        viewListOfAllMember.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        viewListOfAllMember.setForeground(new java.awt.Color(127, 127, 127));
-        viewListOfAllMember.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/raven/icon/10.png"))); // NOI18N
-        viewListOfAllMember.setText("View List of All Member");
+        viewListOfAllMemberButton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        viewListOfAllMemberButton.setForeground(new java.awt.Color(127, 127, 127));
+        viewListOfAllMemberButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/raven/icon/10.png"))); // NOI18N
+        viewListOfAllMemberButton.setText("View List of All Member");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -60,13 +62,15 @@ public class GroupChatListForward extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(320, 320, 320)
+                        .addGap(137, 137, 137)
+                        .addComponent(groupIdText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(112, 112, 112)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(groupNameText, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(244, 244, 244)
-                        .addComponent(viewListOfAllMember, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(viewListOfAllMemberButton, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(viewListOfAllAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(162, Short.MAX_VALUE))
@@ -75,12 +79,14 @@ public class GroupChatListForward extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(groupIdText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(groupNameText, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(viewListOfAllMember, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(viewListOfAllMemberButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(viewListOfAllAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -91,21 +97,29 @@ public class GroupChatListForward extends javax.swing.JPanel {
     }
 
     public void addListenerViewListOfAllMember(ActionListener listener) {
-        viewListOfAllMember.addActionListener(listener);
+        viewListOfAllMemberButton.addActionListener(listener);
     }
-    
-    public void setGroupNameText(String name)
-    {
+
+    public void setGroupNameText(String name) {
         groupNameText.setText(name);
     }
-    public String getGroupNameText(){
+
+    public void setGroupIdText(String id) {
+        groupIdText.setText(id);
+    }
+
+    public String getGroupNameText() {
         return groupNameText.getText();
     }
-    
+
+    public String getGroupIdText() {
+        return groupIdText.getText();
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField groupIdText;
     private javax.swing.JLabel groupNameText;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JButton viewListOfAllAdmin;
-    private javax.swing.JButton viewListOfAllMember;
+    private javax.swing.JButton viewListOfAllMemberButton;
     // End of variables declaration//GEN-END:variables
 }

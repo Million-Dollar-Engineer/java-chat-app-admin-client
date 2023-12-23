@@ -108,7 +108,7 @@ public class DashBoardMain extends javax.swing.JFrame {
 
                 if (!("".equals(id))) {
                     try {
-                        userManagerListFriendView = new UserManagerListFriend(id,username);
+                        userManagerListFriendView = new UserManagerListFriend(id, username);
                         userManagerListFriendView.addListenerPreviousPageUserManager(new MouseAdapter() {
                             @Override
                             public void mouseClicked(MouseEvent e) {
@@ -164,11 +164,12 @@ public class DashBoardMain extends javax.swing.JFrame {
                     groupChatListView.addListenerViewListOfAllMemberButton(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
+                            String groupId = groupChatListView.getGroupIdText();
                             String groupName = groupChatListView.getGroupNametext();
+                            System.out.println("Bam: " + groupId + "   " + groupName);
 
-                            if (!("".equals(groupName))) {
-
-                                groupChatListAllMemberView = new GroupChatListAllMember(groupName);
+                            if (!("".equals(groupId))) {
+                                groupChatListAllMemberView = new GroupChatListAllMember(groupId, groupName);
 
                                 // Lấy ra username => call API => retreive data;
                                 groupChatListAllMemberView.addListenerPreviousPageGroupChat(new MouseAdapter() {

@@ -4,12 +4,22 @@
  */
 package components.GroupChatList.ViewAllMember;
 
+import Interface.User;
+import com.google.gson.Gson;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.MouseAdapter;
+import java.net.HttpURLConnection;
+import java.net.URI;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
+import java.net.http.*;
+import java.util.List;
+import javax.swing.SwingWorker;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 /**
  *
@@ -21,14 +31,15 @@ public class GroupChatListAllMember extends javax.swing.JPanel {
      * Creates new form GroupChatListAllMember
      */
     private String groupName;
+    private String id;
 
-    public GroupChatListAllMember(String name) {
+    public GroupChatListAllMember(String id, String name) {
+        this.id = id;
         initComponents();
 
         // Add fake data
-        for (int i = 0; i < 50; i++) {
-            groupChatListAllMemberTable.addRow(new Object[]{"lenguyenthai123", "Lê Nguyên Thái", "Member", "2023/12/6"});
-            groupChatListAllMemberTable.addRow(new Object[]{"lenguyenthai123", "Lê Nguyên Thái", "Admin", "2023/12/6"});
+        for (int i = 0; i < 10; i++) {
+            groupChatListAllMemberTable.addRow(new Object[]{"lenguyenthai123", "lenguyenthai123", "Lê Nguyên Thái", "202 Nguyen Trong Ky", "2003-05-15", "Male", "Lnt0995449235@gmail.com", "2023-23-12", "active"});
         }
 
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
@@ -36,6 +47,61 @@ public class GroupChatListAllMember extends javax.swing.JPanel {
         groupChatListAllMemberTable.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
         groupNameText.setText(name);
 
+        new CallAPIGroupChatAllMember().execute();
+    }
+
+    private class CallAPIGroupChatAllMember extends SwingWorker<String, User[]> {
+
+        @Override
+        protected String doInBackground() {
+            try {
+                String api = "http://13.215.176.178:8881/admin/group-chat-member/" + id;
+                System.out.println("API all member: " + api);
+
+                HttpClient client = HttpClient.newHttpClient();
+
+                HttpRequest req = HttpRequest.newBuilder()
+                        .uri(new URI(api))
+                        .GET()
+                        .build();
+
+                HttpResponse<String> res = client.send(req, HttpResponse.BodyHandlers.ofString());
+
+                int resCode = res.statusCode();
+                String json = res.body();
+                if (resCode == HttpURLConnection.HTTP_OK) {
+                    System.out.println("Call API Thanh cong");
+
+                    JSONParser par = new JSONParser();
+                    JSONObject data = (JSONObject) par.parse(json);
+                    JSONArray list = (JSONArray) data.get("members");
+                    String json1 = list.toString();
+
+                    Gson gson = new Gson();
+                    User[] users = gson.fromJson(json1, User[].class);
+
+                    publish(users);
+                    System.out.println("Users: " + json1);
+
+                    return "Done";
+                } else {
+                    return "Failed";
+                }
+            } catch (Throwable e) {
+                e.printStackTrace();
+            }
+            return "Failed";
+        }
+
+        @Override
+        protected void process(List<User[]> chunks) {
+            User[] data = chunks.get(chunks.size() - 1);
+            groupChatListAllMemberTable.clearData();
+            for (User user : data) {
+                groupChatListAllMemberTable.addUserRow(user);
+            }
+
+        }
     }
 
     /**
@@ -72,14 +138,14 @@ public class GroupChatListAllMember extends javax.swing.JPanel {
 
             },
             new String [] {
-                "User Name", "Full Name", "Role", "Participate Date"
+                "Id", "User Name", "Full Name", "Address", "Date of Birth", "Sex", "Email", "Last Login", "Status"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, true, false
+                true, false, false, true, true, true, true, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -91,14 +157,6 @@ public class GroupChatListAllMember extends javax.swing.JPanel {
             }
         });
         jScrollPane1.setViewportView(groupChatListAllMemberTable);
-        if (groupChatListAllMemberTable.getColumnModel().getColumnCount() > 0) {
-            groupChatListAllMemberTable.getColumnModel().getColumn(0).setMinWidth(250);
-            groupChatListAllMemberTable.getColumnModel().getColumn(0).setPreferredWidth(250);
-            groupChatListAllMemberTable.getColumnModel().getColumn(0).setMaxWidth(250);
-            groupChatListAllMemberTable.getColumnModel().getColumn(1).setMinWidth(250);
-            groupChatListAllMemberTable.getColumnModel().getColumn(1).setPreferredWidth(250);
-            groupChatListAllMemberTable.getColumnModel().getColumn(1).setMaxWidth(250);
-        }
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(127, 127, 127));
@@ -113,20 +171,19 @@ public class GroupChatListAllMember extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1145, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(previousPageGroupChat)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel1)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(207, 207, 207)
+                                .addGap(586, 586, 586)
                                 .addComponent(jLabel2))
                             .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(groupNameText, javax.swing.GroupLayout.PREFERRED_SIZE, 568, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 13, Short.MAX_VALUE)))
-                .addContainerGap())
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(groupNameText, javax.swing.GroupLayout.PREFERRED_SIZE, 568, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -134,11 +191,12 @@ public class GroupChatListAllMember extends javax.swing.JPanel {
                 .addGap(20, 20, 20)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(previousPageGroupChat)
-                    .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(previousPageGroupChat)
+                        .addComponent(jLabel1))
                     .addComponent(groupNameText, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(41, 41, 41)
+                .addGap(53, 53, 53)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 610, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );

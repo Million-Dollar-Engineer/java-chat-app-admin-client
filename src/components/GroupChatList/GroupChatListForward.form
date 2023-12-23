@@ -24,14 +24,16 @@
           <Group type="102" alignment="0" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="320" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="137" max="-2" attributes="0"/>
+                      <Component id="groupIdText" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="112" max="-2" attributes="0"/>
                       <Component id="jLabel1" min="-2" pref="92" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="groupNameText" min="-2" pref="265" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="244" max="-2" attributes="0"/>
-                      <Component id="viewListOfAllMember" min="-2" pref="229" max="-2" attributes="0"/>
+                      <Component id="viewListOfAllMemberButton" min="-2" pref="229" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="viewListOfAllAdmin" min="-2" pref="229" max="-2" attributes="0"/>
                   </Group>
@@ -44,13 +46,16 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel1" alignment="0" min="-2" pref="35" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                      <Component id="jLabel1" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                      <Component id="groupIdText" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
                   <Component id="groupNameText" alignment="0" min="-2" pref="35" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="viewListOfAllMember" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
+                  <Component id="viewListOfAllMemberButton" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
                   <Component id="viewListOfAllAdmin" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
@@ -99,7 +104,7 @@
         <Property name="text" type="java.lang.String" value="View List of All Admin"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="viewListOfAllMember">
+    <Component class="javax.swing.JButton" name="viewListOfAllMemberButton">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial" size="14" style="0"/>
@@ -112,6 +117,8 @@
         </Property>
         <Property name="text" type="java.lang.String" value="View List of All Member"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="groupIdText">
     </Component>
   </SubComponents>
 </Form>
