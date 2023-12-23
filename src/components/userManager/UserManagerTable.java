@@ -54,7 +54,7 @@ public class UserManagerTable extends JTable {
     }
     public void addUserRow(User user)
     {
-        addRow(new Object[]{user.username,user.password,user.fullname, user.address, user.dateOfBirth,user.sex,user.email,user.lastActive,user.status});
+        addRow(new Object[]{user.id,user.username,user.password,user.fullname, user.address, user.dateOfBirth,user.sex,user.email,user.lastActive,user.status});
     }
     
     public void initComponents(){

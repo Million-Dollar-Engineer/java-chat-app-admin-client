@@ -13,6 +13,32 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import java.awt.event.ActionEvent;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.ProtocolException;
+import java.net.URI;
+import java.net.URL;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.SwingWorker;
+import org.apache.http.client.methods.HttpPatch;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+//import org.json.simple.JSONObject;
+//import org.json.simple.parser.JSONParser;
+//import org.json.simple.parser.ParseException;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 /**
  *
@@ -35,6 +61,269 @@ public class UserCRUD extends javax.swing.JPanel {
             }
         });
 
+        createNewButton.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new CallAPICreateUser().execute();
+            }
+        });
+        updateButton.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new CallAPIUpdateUser().execute();
+            }
+        });
+        deleteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new CallAPIDeleteUser().execute();
+            }
+        });
+        idText.setVisible(false);
+    }
+
+    private class CallAPIDeleteUser extends SwingWorker<String, Object> {
+
+        @Override
+        protected String doInBackground() {
+            HttpURLConnection con = null;
+            try {
+                String api = "http://13.215.176.178:8881/admin/all-user/";
+
+                String id = idText.getText();
+
+                api = api + id;
+
+                HttpRequest req = HttpRequest.newBuilder()
+                        .uri(URI.create(api))
+                        .DELETE()
+                        .build();
+
+                HttpClient client = HttpClient.newHttpClient();
+                HttpResponse<String> res = client.send(req, HttpResponse.BodyHandlers.ofString());
+
+                int resCode = res.statusCode();
+                System.out.println("Response code: " + resCode);
+                System.out.println("Data: " + res.body());
+
+                if (resCode == 200) {
+                    System.out.println("Data" + res);
+                    JOptionPane.showMessageDialog(null, "Delete successfully", "Notify", JOptionPane.INFORMATION_MESSAGE);
+
+                } else {
+                    String re = String.valueOf(res.body());
+                    System.out.println("Data" + re);
+                    JOptionPane.showMessageDialog(null, "Delete Failed", "ERROR", JOptionPane.ERROR_MESSAGE);
+                }
+
+//                client.()
+                return "Done";
+            } catch (ProtocolException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return "Failed";
+        }
+
+        @Override
+        protected void process(List<Object> chunks) {
+
+        }
+
+        @Override
+        protected void done() {
+            try {
+                String result = get();
+//                if (result != null) {
+//                    JOptionPane.showMessageDialog(null, "Load users successfully", "Successfully", JOptionPane.INFORMATION_MESSAGE);
+//                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private class CallAPIUpdateUser extends SwingWorker<String, Object> {
+
+        @Override
+        protected String doInBackground() {
+            HttpURLConnection con = null;
+            try {
+                String api = "http://13.215.176.178:8881/admin/all-user/update-user";
+
+                JSONObject user = new JSONObject();
+
+                user.put("username", usernameText.getText());
+                String password = String.valueOf(passwordText.getPassword());
+                user.put("password", password);
+                user.put("sex", String.valueOf(statusText.getSelectedItem()));
+                user.put("address", addressText.getText());
+                user.put("fullname", fullnameText.getText());
+                user.put("dateOfBirth", dateOfBirthText.getText());
+                user.put("email", emailText.getText());
+                user.put("status", String.valueOf(statusText.getSelectedItem()));
+
+                String json = user.toString();
+                System.out.println("User: " + json);
+
+                HttpRequest req = HttpRequest.newBuilder()
+                        .uri(URI.create(api))
+                        .header("Content-Type", "application/json")
+                        .method("PATCH", HttpRequest.BodyPublishers.ofString(json))
+                        .build();
+
+                HttpClient client = HttpClient.newHttpClient();
+                HttpResponse<String> res = client.send(req, HttpResponse.BodyHandlers.ofString());
+
+                int resCode = res.statusCode();
+                System.out.println("Response code: " + resCode);
+                System.out.println("Data: " + res.body());
+
+                if (resCode == 200) {
+                    System.out.println("Data" + res);
+                    JOptionPane.showMessageDialog(null, "Update successfully", "Notify", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    String re = String.valueOf(res.body());
+                    System.out.println("Data" + re);
+//                    JSONParser par = new JSONParser();
+//                    JSONObject data = (JSONObject) par.parse(re);
+                    JOptionPane.showMessageDialog(null, "Update Failed", "ERROR", JOptionPane.ERROR_MESSAGE);
+                }
+
+//                client.()
+                return "Done";
+            } catch (ProtocolException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return "Failed";
+        }
+
+        @Override
+        protected void process(List<Object> chunks) {
+
+        }
+
+        @Override
+        protected void done() {
+            try {
+                String result = get();
+//                if (result != null) {
+//                    JOptionPane.showMessageDialog(null, "Load users successfully", "Successfully", JOptionPane.INFORMATION_MESSAGE);
+//                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private class CallAPICreateUser extends SwingWorker<String, Object> {
+
+        @Override
+        protected String doInBackground() {
+            HttpURLConnection con = null;
+            try {
+                String api = "http://13.215.176.178:8881/admin/all-user/create-user";
+
+                URL url = new URL(api);
+
+//                con = (HttpURLConnection) url.openConnection();
+//
+//                con.setRequestMethod("POST");
+//                con.setRequestProperty("Content-Type", "application/json");
+//                con.setDoOutput(true);
+                JSONObject user = new JSONObject();
+                user.put("username", usernameText.getText());
+
+                String password = String.valueOf(passwordText.getPassword());
+                user.put("password", password);
+                user.put("sex", String.valueOf(sexText.getSelectedItem()));
+                user.put("address", addressText.getText());
+                user.put("fullname", fullnameText.getText());
+                user.put("dateOfBirth", dateOfBirthText.getText());
+                user.put("email", emailText.getText());
+                user.put("status", String.valueOf(statusText.getSelectedItem()));
+
+                String json = user.toString();
+                System.out.println("User: " + json);
+
+//                try (DataOutputStream wr = new DataOutputStream(con.getOutputStream())) {
+//                    wr.writeBytes(json);
+//                    wr.flush();
+//                }
+//
+//                int resCode = con.getResponseCode();
+//                String resMsg = con.getResponseMessage();
+//                System.out.println("Response code: " + resCode);
+                HttpRequest req = HttpRequest.newBuilder()
+                        .uri(URI.create(api))
+                        .header("Content-Type", "application/json")
+                        .method("POST", HttpRequest.BodyPublishers.ofString(json))
+                        .build();
+                HttpClient client = HttpClient.newHttpClient();
+                HttpResponse<String> res = client.send(req, HttpResponse.BodyHandlers.ofString());
+                int resCode = res.statusCode();
+                String resBuf = res.body();
+                System.out.println("Code" + res.statusCode());
+                System.out.println("Data" + res.body());
+
+                System.out.println("Data" + res);
+                if (resCode == 200) {
+//                    String resBuf = "";
+//                    String line = "";
+//                    try (BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream()))) {
+//                        while ((line = reader.readLine()) != null) {
+//                            resBuf += line;
+//                        }
+//                    }
+                    JSONParser par = new JSONParser();
+                    JSONObject res1 = (JSONObject) par.parse(resBuf);
+
+                    JOptionPane.showMessageDialog(null, res1.get("message").toString(), "Notify", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Create failed","ERROR", JOptionPane.ERROR_MESSAGE);
+                }
+
+                return "Done";
+            } catch (ProtocolException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (InterruptedException ex) {
+                Logger.getLogger(UserCRUD.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ParseException ex) {
+                Logger.getLogger(UserCRUD.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+
+            }
+
+            return "Failed";
+        }
+
+        @Override
+        protected void process(List<Object> chunks) {
+
+        }
+
+        @Override
+        protected void done() {
+            try {
+                String result = get();
+//                if (result != null) {
+//                    JOptionPane.showMessageDialog(null, "Load users successfully", "Successfully", JOptionPane.INFORMATION_MESSAGE);
+//                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**
@@ -63,21 +352,23 @@ public class UserCRUD extends javax.swing.JPanel {
         fullnameText = new javax.swing.JTextField();
         addressText = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        usenameText = new javax.swing.JTextField();
+        usernameText = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         dateOfBirthText = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         emailText = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        statusText = new javax.swing.JTextField();
         createNewButton = new javax.swing.JButton();
         deleteButton = new javax.swing.JButton();
         updateButton = new javax.swing.JButton();
         passwordText = new javax.swing.JPasswordField();
         banButton = new javax.swing.JToggleButton();
-        sexText = new javax.swing.JTextField();
         listFriendButton = new javax.swing.JButton();
+        clearButton = new javax.swing.JButton();
         loginHistoryButton = new javax.swing.JButton();
+        idText = new javax.swing.JTextField();
+        statusText = new javax.swing.JComboBox<>();
+        sexText = new javax.swing.JComboBox<>();
 
         jRadioButtonMenuItem1.setSelected(true);
         jRadioButtonMenuItem1.setText("jRadioButtonMenuItem1");
@@ -123,10 +414,10 @@ public class UserCRUD extends javax.swing.JPanel {
         jLabel6.setForeground(new java.awt.Color(127, 127, 127));
         jLabel6.setText("Full Name");
 
-        usenameText.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        usenameText.addActionListener(new java.awt.event.ActionListener() {
+        usernameText.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        usernameText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                usenameTextActionPerformed(evt);
+                usernameTextActionPerformed(evt);
             }
         });
 
@@ -155,13 +446,6 @@ public class UserCRUD extends javax.swing.JPanel {
         jLabel9.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(127, 127, 127));
         jLabel9.setText("Status");
-
-        statusText.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        statusText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                statusTextActionPerformed(evt);
-            }
-        });
 
         createNewButton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         createNewButton.setForeground(new java.awt.Color(127, 127, 127));
@@ -210,18 +494,6 @@ public class UserCRUD extends javax.swing.JPanel {
             }
         });
 
-        sexText.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        sexText.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                sexTextMouseClicked(evt);
-            }
-        });
-        sexText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sexTextActionPerformed(evt);
-            }
-        });
-
         listFriendButton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         listFriendButton.setForeground(new java.awt.Color(127, 127, 127));
         listFriendButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/raven/icon/2.png"))); // NOI18N
@@ -229,6 +501,16 @@ public class UserCRUD extends javax.swing.JPanel {
         listFriendButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 listFriendButtonActionPerformed(evt);
+            }
+        });
+
+        clearButton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        clearButton.setForeground(new java.awt.Color(127, 127, 127));
+        clearButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/raven/icon/3.png"))); // NOI18N
+        clearButton.setText("Clear");
+        clearButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clearButtonActionPerformed(evt);
             }
         });
 
@@ -241,6 +523,16 @@ public class UserCRUD extends javax.swing.JPanel {
                 loginHistoryButtonActionPerformed(evt);
             }
         });
+
+        idText.setText("jTextField1");
+
+        statusText.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        statusText.setForeground(new java.awt.Color(127, 127, 127));
+        statusText.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "active", "inactive", "ban", "unban" }));
+
+        sexText.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        sexText.setForeground(new java.awt.Color(127, 127, 127));
+        sexText.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "male", "female", "other", "null" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -257,42 +549,51 @@ public class UserCRUD extends javax.swing.JPanel {
                 .addComponent(banButton, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 154, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(70, 70, 70)
+                .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel3))
-                .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(addressText)
-                    .addComponent(usenameText, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
-                    .addComponent(passwordText)
-                    .addComponent(sexText))
-                .addGap(55, 55, 55)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(55, 55, 55)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel8))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel3))
+                        .addGap(27, 27, 27)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(addressText)
+                            .addComponent(usernameText, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
+                            .addComponent(passwordText)
+                            .addComponent(sexText, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(55, 55, 55)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(dateOfBirthText, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel6)
+                                .addGap(26, 26, 26)
+                                .addComponent(fullnameText, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(loginHistoryButton))
+                                .addComponent(listFriendButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel7)
+                                            .addComponent(jLabel8))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(dateOfBirthText, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(6, 6, 6)
+                                                .addComponent(emailText, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel9)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(statusText, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(statusText, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(emailText, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addGap(26, 26, 26)
-                        .addComponent(fullnameText, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(listFriendButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jLabel9))
+                                    .addComponent(clearButton)
+                                    .addComponent(loginHistoryButton)))))
+                    .addComponent(idText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -305,7 +606,7 @@ public class UserCRUD extends javax.swing.JPanel {
                         .addComponent(listFriendButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(usenameText, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(usernameText, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel1)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -318,22 +619,25 @@ public class UserCRUD extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(emailText, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
-                    .addComponent(sexText, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel3)
+                    .addComponent(addressText, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(statusText, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(addressText, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel3)
-                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(41, 41, 41)
+                        .addComponent(clearButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(statusText, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(sexText)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(idText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(updateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(createNewButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(banButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28))
+                .addGap(23, 23, 23))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -345,21 +649,13 @@ public class UserCRUD extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_addressTextActionPerformed
 
-    private void usenameTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usenameTextActionPerformed
+    private void usernameTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameTextActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_usenameTextActionPerformed
-
-    private void dateOfBirthTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dateOfBirthTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_dateOfBirthTextActionPerformed
+    }//GEN-LAST:event_usernameTextActionPerformed
 
     private void emailTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailTextActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_emailTextActionPerformed
-
-    private void statusTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statusTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_statusTextActionPerformed
 
     private void addressTextMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addressTextMouseClicked
         // TODO add your handling code here:
@@ -385,17 +681,26 @@ public class UserCRUD extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_banButtonActionPerformed
 
-    private void sexTextMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sexTextMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_sexTextMouseClicked
-
-    private void sexTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sexTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_sexTextActionPerformed
-
     private void listFriendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listFriendButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_listFriendButtonActionPerformed
+
+    private void clearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearButtonActionPerformed
+        usernameText.setText("");
+        passwordText.setText("");
+//        sexText.setText("");
+        usernameText.setText("");
+        addressText.setText("");
+        fullnameText.setText("");
+        dateOfBirthText.setText("");
+        emailText.setText("");
+
+
+    }//GEN-LAST:event_clearButtonActionPerformed
+
+    private void dateOfBirthTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dateOfBirthTextActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dateOfBirthTextActionPerformed
 
     private void loginHistoryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginHistoryButtonActionPerformed
         // TODO add your handling code here:
@@ -405,11 +710,13 @@ public class UserCRUD extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField addressText;
     private javax.swing.JToggleButton banButton;
+    private javax.swing.JButton clearButton;
     private javax.swing.JButton createNewButton;
     private javax.swing.JTextField dateOfBirthText;
     private javax.swing.JButton deleteButton;
     private javax.swing.JTextField emailText;
     private javax.swing.JTextField fullnameText;
+    private javax.swing.JTextField idText;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -422,10 +729,10 @@ public class UserCRUD extends javax.swing.JPanel {
     private javax.swing.JButton listFriendButton;
     private javax.swing.JButton loginHistoryButton;
     private javax.swing.JPasswordField passwordText;
-    private javax.swing.JTextField sexText;
-    private javax.swing.JTextField statusText;
+    private javax.swing.JComboBox<String> sexText;
+    private javax.swing.JComboBox<String> statusText;
     private javax.swing.JButton updateButton;
-    private javax.swing.JTextField usenameText;
+    private javax.swing.JTextField usernameText;
     // End of variables declaration//GEN-END:variables
 
     // ------------------------------------
@@ -469,7 +776,7 @@ public class UserCRUD extends javax.swing.JPanel {
 
     //-------------------------------------------
     public String getUsernameText() {
-        return usenameText.getText();
+        return usernameText.getText();
     }
 
     public void addListenerListFriendButton(ActionListener listener) {
@@ -481,15 +788,37 @@ public class UserCRUD extends javax.swing.JPanel {
     }
 
     // --------------------------------------
-    public void setInfo(String username, String fullname, String password, String dateOfBirth, String sex, String email, String address, String status, Boolean ban) {
-        usenameText.setText(username);
+    public void setInfo(String id, String username, String fullname, String password, String dateOfBirth, String sex, String email, String address, String status, Boolean ban) {
+        idText.setText(id);
+        usernameText.setText(username);
         fullnameText.setText(fullname);
         passwordText.setText(password);
         dateOfBirthText.setText(dateOfBirth);
-        sexText.setText(sex);
+
+        if ("male".equals(sex)) {
+            sexText.setSelectedIndex(0);
+        }
+        if ("female".equals(sex)) {
+            sexText.setSelectedIndex(1);
+        }
+        if ("other".equals(sex)) {
+            sexText.setSelectedIndex(2);
+        }
+        if ("null".equals(sex)) {
+            sexText.setSelectedIndex(3);
+        }
         addressText.setText(address);
         emailText.setText(email);
-        statusText.setText(status);
+
+        if ("active".equals(status)) {
+            statusText.setSelectedIndex(0);
+        }
+        if ("inactive".equals(status)) {
+            statusText.setSelectedIndex(1);
+        }
+        if ("ban".equals(status)) {
+            statusText.setSelectedIndex(2);
+        }
 
         setBanButton(ban);
     }

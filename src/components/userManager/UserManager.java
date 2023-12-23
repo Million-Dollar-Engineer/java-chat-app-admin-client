@@ -46,15 +46,6 @@ public class UserManager extends javax.swing.JPanel {
         setOpaque(false);
 
         //Fake data
-//        userManagerTable.addRow(new Object[]{"rantczak0", "Roseanna Antczak", "Apt 1559", "Apt 1559", "5/24/2023", "Female", "rantczak0@friendfeed.com", "6/23/2023", "Male"});
-//        userManagerTable.addRow(new Object[]{"rantczak0", "Roseanna Antczak", "Apt 1559", "Apt 1559", "5/24/2023", "Female", "rantczak0@friendfeed.com", "6/23/2023", "Male"});
-//        userManagerTable.addRow(new Object[]{"rantczak0", "Roseanna Antczak", "Apt 1559", "Apt 1559", "5/24/2023", "Female", "rantczak0@friendfeed.com", "6/23/2023", "Male"});
-//        userManagerTable.addRow(new Object[]{"rantczak0", "Roseanna Antczak", "Apt 1559", "Apt 1559", "5/24/2023", "Female", "rantczak0@friendfeed.com", "6/23/2023", "Male"});
-//        userManagerTable.addRow(new Object[]{"rantczak0", "Roseanna Antczak", "Apt 1559", "Apt 1559", "5/24/2023", "Female", "rantczak0@friendfeed.com", "6/23/2023", "Male"});
-//        userManagerTable.addRow(new Object[]{"rantczak0", "Roseanna Antczak", "Apt 1559", "Apt 1559", "5/24/2023", "Female", "rantczak0@friendfeed.com", "6/23/2023", "Male"});
-//        userManagerTable.addRow(new Object[]{"rantczak0", "Roseanna Antczak", "Apt 1559", "Apt 1559", "5/24/2023", "Female", "rantczak0@friendfeed.com", "6/23/2023", "Male"});
-//        userManagerTable.addRow(new Object[]{"rantczak0", "Roseanna Antczak", "Apt 1559", "Apt 1559", "5/24/2023", "Female", "rantczak0@friendfeed.com", "6/23/2023", "Male"});
-
 //        DefaultTableCellRenderer leftRenderer = new DefaultTableCellRenderer();
 //        leftRenderer.setHorizontalAlignment(SwingConstants.LEFT);
 //        userManagerTable.getColumnModel().getColumn(9).setCellRenderer(leftRenderer);
@@ -63,7 +54,7 @@ public class UserManager extends javax.swing.JPanel {
 
         // Searching 
         searching.addListenerSearchButton(new ListenerSearching());
-
+        new APICallWorkerSearching().execute();
         setVisible(true);
     }
 
@@ -224,7 +215,6 @@ public class UserManager extends javax.swing.JPanel {
 //            }
 //        }
 //    }
-
     protected void paintComponent(Graphics grphcs) {
         System.out.println("User manager");
         Graphics2D g2 = (Graphics2D) grphcs;
@@ -278,21 +268,25 @@ public class UserManager extends javax.swing.JPanel {
                 int selectedRow = userManagerTable.getSelectedRow();
                 if (selectedRow != -1) {
                     // Lấy dữ liệu từ dòng được chọn
-                    String username = getStringValue(userManagerTable.getValueAt(selectedRow, 0));
-                    String password = getStringValue(userManagerTable.getValueAt(selectedRow, 1));
-                    String fullname = getStringValue(userManagerTable.getValueAt(selectedRow, 2));
-                    String address = getStringValue(userManagerTable.getValueAt(selectedRow, 3));
-                    String dateOfBirth = getStringValue(userManagerTable.getValueAt(selectedRow, 4));
-                    String sex = getStringValue(userManagerTable.getValueAt(selectedRow, 5));
-                    String email = getStringValue(userManagerTable.getValueAt(selectedRow, 6));
-                    String status = getStringValue(userManagerTable.getValueAt(selectedRow, 8));
+                    String id = getStringValue(userManagerTable.getValueAt(selectedRow, 0));
+                    String username = getStringValue(userManagerTable.getValueAt(selectedRow, 1));
+                    String password = getStringValue(userManagerTable.getValueAt(selectedRow, 2));
+                    String fullname = getStringValue(userManagerTable.getValueAt(selectedRow, 3));
+                    String address = getStringValue(userManagerTable.getValueAt(selectedRow, 4));
+                    String dateOfBirth = getStringValue(userManagerTable.getValueAt(selectedRow, 5));
+                    String sex = getStringValue(userManagerTable.getValueAt(selectedRow, 6));
+                    String email = getStringValue(userManagerTable.getValueAt(selectedRow, 7));
+                    String status = getStringValue(userManagerTable.getValueAt(selectedRow, 9));
                     // In thông tin của dòng được chọn
-                    userCRUD.setInfo(username, fullname, password, dateOfBirth, sex, email, address, status,true);
+                    userCRUD.setInfo(id,username, fullname, password, dateOfBirth, sex, email, address, status, true);
                 }
             }
         }
     }
-
+    public static void main(String[] args)
+    {
+        new UserManager().setVisible(true);
+    }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -316,14 +310,14 @@ public class UserManager extends javax.swing.JPanel {
 
             },
             new String [] {
-                "User", "Password", "Full Name", "Address", "Date of Birth", "Sex", "Email", "Last Login", "Status"
+                "Id", "User", "Password", "Full Name", "Address", "Date of Birth", "Sex", "Email", "Last Login", "Status"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
+                true, false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -341,18 +335,23 @@ public class UserManager extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(searching, javax.swing.GroupLayout.DEFAULT_SIZE, 988, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(userCRUD, javax.swing.GroupLayout.PREFERRED_SIZE, 941, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(21, 21, 21)
-                            .addComponent(jLabel1))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(19, 19, 19)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 949, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(jLabel1)
+                        .addGap(826, 977, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(userCRUD, javax.swing.GroupLayout.PREFERRED_SIZE, 941, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(90, 90, 90))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(searching, javax.swing.GroupLayout.PREFERRED_SIZE, 1073, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(14, 14, 14))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -363,9 +362,9 @@ public class UserManager extends javax.swing.JPanel {
                 .addComponent(searching, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(userCRUD, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
