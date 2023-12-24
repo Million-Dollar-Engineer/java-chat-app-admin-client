@@ -1,11 +1,13 @@
 
 package components.NewRegistered;
 
+import Interface.User;
 import components.SpamAndReport.*;
 import components.GroupChatList.ViewAllMember.*;
 import components.GroupChatList.*;
 import java.awt.Color;
 import java.awt.Component;
+import java.text.SimpleDateFormat;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
@@ -48,7 +50,21 @@ public class NewRegisteredTable extends JTable {
 //            }
 //        });
     }
-    
+    public void clearData() {
+        DefaultTableModel model = (DefaultTableModel) getModel();
+        model.setRowCount(0);
+    }
+
+    public void addUserRow(User user) {
+        System.out.println("Create At"+ user.createAt);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        if (user.dateOfBirth.length()!=4) {
+            user.dateOfBirth = user.dateOfBirth.substring(0, 10);
+            System.out.println(user.dateOfBirth);
+        }
+        addRow(new Object[]{user.id, user.username, user.fullname, user.address, ((user.dateOfBirth)), user.sex, user.email, user.lastActive, user.createAt, user.status}
+        );
+    }
     public void initComponents(){
         selectionModel = getSelectionModel();
         selectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

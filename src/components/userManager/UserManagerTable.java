@@ -1,9 +1,10 @@
-
 package components.userManager;
 
 import Interface.User;
 import java.awt.Color;
 import java.awt.Component;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
@@ -13,24 +14,23 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 public class UserManagerTable extends JTable {
-    
+
     ListSelectionModel selectionModel;
-    public UserManagerTable()
-    {
+
+    public UserManagerTable() {
         setShowHorizontalLines(true);
-        setGridColor(new Color(230,230,230));
+        setGridColor(new Color(230, 230, 230));
         setBackground(Color.WHITE);
         setRowHeight(40);
         getTableHeader().setReorderingAllowed(false);
-        getTableHeader().setDefaultRenderer(new DefaultTableCellRenderer(){
+        getTableHeader().setDefaultRenderer(new DefaultTableCellRenderer() {
             @Override
-            public Component getTableCellRendererComponent (JTable jtable, Object o, boolean bln, boolean bln1,int i,int i1){
-                 UserManagerTableHeader header = new UserManagerTableHeader(o + "");
-                 if(i1==1)
-                 {
-                     header.setHorizontalAlignment(JLabel.CENTER);
-                 }
-                 return header;
+            public Component getTableCellRendererComponent(JTable jtable, Object o, boolean bln, boolean bln1, int i, int i1) {
+                UserManagerTableHeader header = new UserManagerTableHeader(o + "");
+                if (i1 == 1) {
+                    header.setHorizontalAlignment(JLabel.CENTER);
+                }
+                return header;
             }
         });
         setBorder(null);
@@ -46,28 +46,33 @@ public class UserManagerTable extends JTable {
 //            }
 //        });
     }
-    
-    public void clearData()
-    {
+
+    public void clearData() {
         DefaultTableModel model = (DefaultTableModel) getModel();
         model.setRowCount(0);
     }
-    public void addUserRow(User user)
-    {
-        addRow(new Object[]{user.id,user.username,user.password,user.fullname, user.address, user.dateOfBirth,user.sex,user.email,user.lastActive,user.status});
+
+    public void addUserRow(User user) {
+        System.out.println("Create At"+ user.createAt);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        if (user.dateOfBirth.length()!=4) {
+            user.dateOfBirth = user.dateOfBirth.substring(0, 10);
+            System.out.println(user.dateOfBirth);
+        }
+        addRow(new Object[]{user.id, user.username, user.password, user.fullname, user.address, ((user.dateOfBirth)), user.sex, user.email, user.lastActive, user.createAt, user.status}
+        );
     }
-    
-    public void initComponents(){
+
+    public void initComponents() {
         selectionModel = getSelectionModel();
         selectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
-    public void addListener(ListSelectionListener listener)
-    {
+
+    public void addListener(ListSelectionListener listener) {
         selectionModel.addListSelectionListener(listener);
     }
 
-    public void addRow(Object[] row)
-    {
+    public void addRow(Object[] row) {
         DefaultTableModel model = (DefaultTableModel) getModel();
         model.addRow(row);
     }

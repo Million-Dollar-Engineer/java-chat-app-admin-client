@@ -34,6 +34,9 @@ import org.apache.http.impl.client.HttpClients;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.simple.JSONObject;
@@ -162,10 +165,14 @@ public class UserCRUD extends javax.swing.JPanel {
                 user.put("username", usernameText.getText());
                 String password = String.valueOf(passwordText.getPassword());
                 user.put("password", password);
-                user.put("sex", String.valueOf(statusText.getSelectedItem()));
+                user.put("sex", String.valueOf(sexText.getSelectedItem()));
                 user.put("address", addressText.getText());
                 user.put("fullname", fullnameText.getText());
-                user.put("dateOfBirth", dateOfBirthText.getText());
+
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                Date tmp = dateOfBirthText.getDate();
+
+                user.put("dateOfBirth", String.valueOf(dateFormat.format(tmp)));
                 user.put("email", emailText.getText());
                 user.put("status", String.valueOf(statusText.getSelectedItem()));
 
@@ -249,7 +256,11 @@ public class UserCRUD extends javax.swing.JPanel {
                 user.put("sex", String.valueOf(sexText.getSelectedItem()));
                 user.put("address", addressText.getText());
                 user.put("fullname", fullnameText.getText());
-                user.put("dateOfBirth", dateOfBirthText.getText());
+
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                Date tmp = dateOfBirthText.getDate();
+
+                user.put("dateOfBirth", String.valueOf(dateFormat.format(tmp)));
                 user.put("email", emailText.getText());
                 user.put("status", String.valueOf(statusText.getSelectedItem()));
 
@@ -290,7 +301,7 @@ public class UserCRUD extends javax.swing.JPanel {
 
                     JOptionPane.showMessageDialog(null, res1.get("message").toString(), "Notify", JOptionPane.INFORMATION_MESSAGE);
                 } else {
-                    JOptionPane.showMessageDialog(null, "Create failed","ERROR", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Create failed", "ERROR", JOptionPane.ERROR_MESSAGE);
                 }
 
                 return "Done";
@@ -355,7 +366,6 @@ public class UserCRUD extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         usernameText = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        dateOfBirthText = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         emailText = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
@@ -370,6 +380,7 @@ public class UserCRUD extends javax.swing.JPanel {
         idText = new javax.swing.JTextField();
         statusText = new javax.swing.JComboBox<>();
         sexText = new javax.swing.JComboBox<>();
+        dateOfBirthText = new com.toedter.calendar.JDateChooser();
 
         jRadioButtonMenuItem1.setSelected(true);
         jRadioButtonMenuItem1.setText("jRadioButtonMenuItem1");
@@ -425,13 +436,6 @@ public class UserCRUD extends javax.swing.JPanel {
         jLabel7.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(127, 127, 127));
         jLabel7.setText("Date of Birth ");
-
-        dateOfBirthText.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        dateOfBirthText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dateOfBirthTextActionPerformed(evt);
-            }
-        });
 
         jLabel8.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(127, 127, 127));
@@ -535,6 +539,8 @@ public class UserCRUD extends javax.swing.JPanel {
         sexText.setForeground(new java.awt.Color(127, 127, 127));
         sexText.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "male", "female", "other", "null" }));
 
+        dateOfBirthText.setDate(new java.util.Date(1703421599000L));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -573,23 +579,20 @@ public class UserCRUD extends javax.swing.JPanel {
                                         .addGap(26, 26, 26)
                                         .addComponent(fullnameText, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
-                                        .addComponent(listFriendButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addComponent(listFriendButton, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addGroup(layout.createSequentialGroup()
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                     .addComponent(jLabel7)
                                                     .addComponent(jLabel8))
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addGroup(layout.createSequentialGroup()
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                        .addComponent(dateOfBirthText, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                    .addGroup(layout.createSequentialGroup()
-                                                        .addGap(6, 6, 6)
-                                                        .addComponent(emailText, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                                .addGap(6, 6, 6)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                    .addComponent(emailText, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
+                                                    .addComponent(dateOfBirthText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                             .addGroup(layout.createSequentialGroup()
                                                 .addComponent(jLabel9)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
                                                 .addComponent(statusText, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                         .addGap(18, 18, 18)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -612,10 +615,10 @@ public class UserCRUD extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(dateOfBirthText, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(passwordText, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
-                    .addComponent(loginHistoryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(loginHistoryButton, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dateOfBirthText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(emailText, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -689,15 +692,11 @@ public class UserCRUD extends javax.swing.JPanel {
         usernameText.setText("");
         addressText.setText("");
         fullnameText.setText("");
-        dateOfBirthText.setText("");
+//        dateOfBirthText.setText("");
         emailText.setText("");
 
 
     }//GEN-LAST:event_clearButtonActionPerformed
-
-    private void dateOfBirthTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dateOfBirthTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_dateOfBirthTextActionPerformed
 
     private void loginHistoryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginHistoryButtonActionPerformed
         // TODO add your handling code here:
@@ -713,7 +712,7 @@ public class UserCRUD extends javax.swing.JPanel {
     private javax.swing.JToggleButton banButton;
     private javax.swing.JButton clearButton;
     private javax.swing.JButton createNewButton;
-    private javax.swing.JTextField dateOfBirthText;
+    private com.toedter.calendar.JDateChooser dateOfBirthText;
     private javax.swing.JButton deleteButton;
     private javax.swing.JTextField emailText;
     private javax.swing.JTextField fullnameText;
@@ -794,7 +793,24 @@ public class UserCRUD extends javax.swing.JPanel {
         usernameText.setText(username);
         fullnameText.setText(fullname);
         passwordText.setText(password);
-        dateOfBirthText.setText(dateOfBirth);
+
+        if (dateOfBirth.length() != 4) {
+            System.out.println("Date: " + dateOfBirthText.getDate());
+
+            int year = Integer.parseInt(dateOfBirth.substring(0, 4));
+            int month = Integer.parseInt(dateOfBirth.substring(5, 7));
+            int day = Integer.parseInt(dateOfBirth.substring(8, 10));
+//            System.out.println("DATE: " + dateOfBirth);
+//            System.out.println("Year " + year);
+//            System.out.println("Month " + month);
+//            System.out.println("Day " + day);
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.YEAR, year);
+            calendar.set(Calendar.MONTH, month - 1); // Giảm đi 1 vì tháng bắt đầu từ 0
+            calendar.set(Calendar.DAY_OF_MONTH, day);
+            Date tmp = calendar.getTime();
+            dateOfBirthText.setDate(tmp);
+        }
 
         if ("male".equals(sex)) {
             sexText.setSelectedIndex(0);
@@ -824,8 +840,7 @@ public class UserCRUD extends javax.swing.JPanel {
         setBanButton(ban);
     }
 
-    public String getId()
-    {
+    public String getId() {
         return idText.getText();
     }
 

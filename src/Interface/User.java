@@ -22,7 +22,7 @@ public class User {
     @SerializedName("updated_at")
     public String updatedAt;
     
-    @SerializedName("create_at")
+    @SerializedName("created_at")
     public String createAt;
     
     

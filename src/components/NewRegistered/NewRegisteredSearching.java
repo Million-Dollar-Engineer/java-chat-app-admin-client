@@ -10,6 +10,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 
@@ -44,9 +46,11 @@ public class NewRegisteredSearching extends javax.swing.JPanel {
         sortBy = new javax.swing.JComboBox<>();
         searchButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        startTime = new com.toedter.calendar.JDateChooser();
         jLabel4 = new javax.swing.JLabel();
-        jDateChooser2 = new com.toedter.calendar.JDateChooser();
+        endTime = new com.toedter.calendar.JDateChooser();
+        jLabel5 = new javax.swing.JLabel();
+        order = new javax.swing.JComboBox<>();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -73,7 +77,7 @@ public class NewRegisteredSearching extends javax.swing.JPanel {
 
         jLabel3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(127, 127, 127));
-        jLabel3.setText("Sort by:");
+        jLabel3.setText("Order:");
         jLabel3.setMaximumSize(new java.awt.Dimension(49, 23));
         jLabel3.setMinimumSize(new java.awt.Dimension(49, 23));
         jLabel3.setPreferredSize(new java.awt.Dimension(49, 23));
@@ -101,16 +105,33 @@ public class NewRegisteredSearching extends javax.swing.JPanel {
         jLabel1.setForeground(new java.awt.Color(127, 127, 127));
         jLabel1.setText("Start Time:");
 
-        jDateChooser1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jDateChooser1.setMinimumSize(new java.awt.Dimension(146, 23));
-        jDateChooser1.setPreferredSize(new java.awt.Dimension(146, 23));
+        startTime.setDate(new java.util.Date(1608807854000L));
+        startTime.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        startTime.setMinimumSize(new java.awt.Dimension(146, 23));
+        startTime.setPreferredSize(new java.awt.Dimension(146, 23));
 
         jLabel4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(127, 127, 127));
         jLabel4.setText("End Time:");
 
-        jDateChooser2.setMinimumSize(new java.awt.Dimension(146, 23));
-        jDateChooser2.setPreferredSize(new java.awt.Dimension(146, 23));
+        endTime.setMinimumSize(new java.awt.Dimension(146, 23));
+        endTime.setPreferredSize(new java.awt.Dimension(146, 23));
+
+        jLabel5.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(127, 127, 127));
+        jLabel5.setText("Sort by:");
+        jLabel5.setMaximumSize(new java.awt.Dimension(49, 23));
+        jLabel5.setMinimumSize(new java.awt.Dimension(49, 23));
+        jLabel5.setPreferredSize(new java.awt.Dimension(49, 23));
+
+        order.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        order.setForeground(new java.awt.Color(127, 127, 127));
+        order.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "asc", "desc" }));
+        order.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                orderActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -124,20 +145,26 @@ public class NewRegisteredSearching extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(startTime, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jDateChooser2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(endTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(searchText, javax.swing.GroupLayout.PREFERRED_SIZE, 491, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(sortBy, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(order, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(sortBy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(searchButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(58, 58, 58))
+                        .addGap(12, 12, 12)
+                        .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -147,14 +174,16 @@ public class NewRegisteredSearching extends javax.swing.JPanel {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(searchText, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(sortBy, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(sortBy, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(order, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(startTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(endTime, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -172,6 +201,10 @@ public class NewRegisteredSearching extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_searchTextActionPerformed
 
+    private void orderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_orderActionPerformed
+
 //    public void initComoponents() {
 //        DefaultComboBoxModel optionSearchModel = new DefaultComboBoxModel();
 //        optionSearchModel.addElement("Name");
@@ -188,16 +221,18 @@ public class NewRegisteredSearching extends javax.swing.JPanel {
         super.paintComponent(grphcs);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.toedter.calendar.JDateChooser jDateChooser1;
-    private com.toedter.calendar.JDateChooser jDateChooser2;
+    private com.toedter.calendar.JDateChooser endTime;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JComboBox<String> order;
     private javax.swing.JButton searchButton;
     private project.SearchText searchText;
     private javax.swing.JComboBox<String> sortBy;
+    private com.toedter.calendar.JDateChooser startTime;
     // End of variables declaration//GEN-END:variables
 
     public String getSortBy() {
@@ -212,6 +247,23 @@ public class NewRegisteredSearching extends javax.swing.JPanel {
 
     public String getSearchText() {
         return searchText.getText();
+    }
+    
+    public String getOrder()
+    {
+        return String.valueOf(order.getSelectedItem());
+    }
+    
+    public String getStartTime() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date tmp = startTime.getDate();
+        return dateFormat.format(tmp);
+    }
+
+    public String getEndTime() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date tmp = endTime.getDate();
+        return dateFormat.format(tmp);
     }
 
     public void addListenerSearchButton(ActionListener listener) {
