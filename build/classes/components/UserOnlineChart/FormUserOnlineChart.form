@@ -30,7 +30,7 @@
                   <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="userOnlineChartSearching2" alignment="1" min="-2" pref="978" max="-2" attributes="0"/>
+                          <Component id="userOnlineChartSearching" alignment="1" min="-2" pref="978" max="-2" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="823" max="-2" attributes="0"/>
@@ -48,7 +48,7 @@
               <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="userOnlineChartSearching2" min="-2" max="-2" attributes="0"/>
+              <Component id="userOnlineChartSearching" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="userOnlineChartLine" min="-2" pref="662" max="-2" attributes="0"/>
               <EmptySpace pref="56" max="32767" attributes="0"/>
@@ -68,7 +68,7 @@
         <Property name="text" type="java.lang.String" value="User Online Chart"/>
       </Properties>
     </Component>
-    <Component class="components.UserOnlineChart.UserOnlineChartSearching" name="userOnlineChartSearching2">
+    <Component class="components.UserOnlineChart.UserOnlineChartSearching" name="userOnlineChartSearching">
     </Component>
     <Component class="components.UserOnlineChart.UserOnlineChartLine" name="userOnlineChartLine">
     </Component>
