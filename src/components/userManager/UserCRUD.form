@@ -442,11 +442,10 @@
           <Color blue="7f" green="7f" red="7f" type="rgb"/>
         </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
+          <StringArray count="3">
             <StringItem index="0" value="active"/>
             <StringItem index="1" value="inactive"/>
-            <StringItem index="2" value="ban"/>
-            <StringItem index="3" value="unban"/>
+            <StringItem index="2" value="banned"/>
           </StringArray>
         </Property>
       </Properties>

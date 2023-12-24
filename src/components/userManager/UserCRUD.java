@@ -529,7 +529,7 @@ public class UserCRUD extends javax.swing.JPanel {
 
         statusText.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         statusText.setForeground(new java.awt.Color(127, 127, 127));
-        statusText.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "active", "inactive", "ban", "unban" }));
+        statusText.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "active", "inactive", "banned" }));
 
         sexText.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         sexText.setForeground(new java.awt.Color(127, 127, 127));

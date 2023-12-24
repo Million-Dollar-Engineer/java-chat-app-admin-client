@@ -22,6 +22,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -53,9 +54,9 @@ public class SpamAndReportBan extends javax.swing.JPanel {
         public String doInBackground() {
             try {
 
-                String username = reportedUserText.getText();
+                String id = reportedUserText.getText();
                 JSONObject o = new JSONObject();
-                o.put("username", username);
+                o.put("id", id);
                 String json = o.toString();
 
                 String api = "http://13.215.176.178:8881/admin/ban-account";
@@ -78,11 +79,7 @@ public class SpamAndReportBan extends javax.swing.JPanel {
 
                     JSONParser par = new JSONParser();
                     JSONObject data = (JSONObject) par.parse(body);
-                    JSONObject list = (JSONObject) data.get("message");
-                    String msg = list.toString();
-
-                    System.out.println("Data: " + list);
-
+                    String msg = String.valueOf(data.get("message"));
                     return msg;
 
                 } else {
@@ -99,13 +96,13 @@ public class SpamAndReportBan extends javax.swing.JPanel {
         protected void done() {
             try {
                 String msg = get();
-                new Thread(new Runnable(){
+                SwingUtilities.invokeLater(new Runnable(){
                     @Override
                     public void run()
                     {
                         JOptionPane.showMessageDialog(null,msg,"Info",JOptionPane.INFORMATION_MESSAGE);
                     }
-                }).start();
+                });
                 
                 
             } catch (InterruptedException ex) {
@@ -117,6 +114,7 @@ public class SpamAndReportBan extends javax.swing.JPanel {
             
                    
         }
+
     }
 
     @SuppressWarnings("unchecked")

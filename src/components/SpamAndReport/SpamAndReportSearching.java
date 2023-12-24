@@ -101,6 +101,7 @@ public class SpamAndReportSearching extends javax.swing.JPanel {
         jLabel1.setForeground(new java.awt.Color(127, 127, 127));
         jLabel1.setText("Start Time:");
 
+        startDate.setDate(new java.util.Date(1671851641000L));
         startDate.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         startDate.setMinimumSize(new java.awt.Dimension(146, 23));
         startDate.setPreferredSize(new java.awt.Dimension(146, 23));
@@ -219,6 +220,7 @@ public class SpamAndReportSearching extends javax.swing.JPanel {
     }
 
     public Date getDateStart() {
+        
         return startDate.getDate();
     }
 

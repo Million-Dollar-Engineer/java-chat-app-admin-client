@@ -249,8 +249,8 @@ public class SpamAndReport extends javax.swing.JPanel {
                 int selectedRow = spamAndReportTable.getSelectedRow();
                 if (selectedRow != -1) {
                     // Lấy dữ liệu từ dòng được chọn
-                    String reportedUser = getStringValue(spamAndReportTable.getValueAt(selectedRow, 1));
-                    String content = getStringValue(spamAndReportTable.getValueAt(selectedRow, 2));
+                    String reportedUser = getStringValue(spamAndReportTable.getValueAt(selectedRow, 2));
+                    String content = getStringValue(spamAndReportTable.getValueAt(selectedRow, 3));
 
                     System.out.println(reportedUser + "  " + content);
                     spamAndReportBan.setReportedUser(reportedUser);
