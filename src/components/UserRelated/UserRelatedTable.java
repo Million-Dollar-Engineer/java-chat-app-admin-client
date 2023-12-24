@@ -1,6 +1,6 @@
-
 package components.UserRelated;
 
+import Interface.*;
 import components.NewRegistered.*;
 import components.SpamAndReport.*;
 import components.GroupChatList.ViewAllMember.*;
@@ -16,24 +16,23 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 public class UserRelatedTable extends JTable {
-    
+
     ListSelectionModel selectionModel;
-    public UserRelatedTable()
-    {
+
+    public UserRelatedTable() {
         setShowHorizontalLines(true);
-        setGridColor(new Color(230,230,230));
+        setGridColor(new Color(230, 230, 230));
         setBackground(Color.WHITE);
         setRowHeight(40);
         getTableHeader().setReorderingAllowed(false);
-        getTableHeader().setDefaultRenderer(new DefaultTableCellRenderer(){
+        getTableHeader().setDefaultRenderer(new DefaultTableCellRenderer() {
             @Override
-            public Component getTableCellRendererComponent (JTable jtable, Object o, boolean bln, boolean bln1,int i,int i1){
-                 NewRegisteredTableHeader header = new NewRegisteredTableHeader(o + "");
-                 if(i1==1)
-                 {
-                     header.setHorizontalAlignment(JLabel.CENTER);
-                 }
-                 return header;
+            public Component getTableCellRendererComponent(JTable jtable, Object o, boolean bln, boolean bln1, int i, int i1) {
+                NewRegisteredTableHeader header = new NewRegisteredTableHeader(o + "");
+                if (i1 == 1) {
+                    header.setHorizontalAlignment(JLabel.CENTER);
+                }
+                return header;
             }
         });
         setBorder(null);
@@ -49,18 +48,26 @@ public class UserRelatedTable extends JTable {
 //            }
 //        });
     }
-    
-    public void initComponents(){
+
+    public void clearData() {
+        DefaultTableModel model = (DefaultTableModel) getModel();
+        model.setRowCount(0);
+    }
+
+    public void addRelatedRow(Related relate) {
+        addRow(new Object[]{relate.id, relate.username, relate.friend, relate.friendOfFriend});
+    }
+
+    public void initComponents() {
         selectionModel = getSelectionModel();
         selectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
-    public void addListener(ListSelectionListener listener)
-    {
+
+    public void addListener(ListSelectionListener listener) {
         selectionModel.addListSelectionListener(listener);
     }
 
-    public void addRow(Object[] row)
-    {
+    public void addRow(Object[] row) {
         DefaultTableModel model = (DefaultTableModel) getModel();
         model.addRow(row);
     }

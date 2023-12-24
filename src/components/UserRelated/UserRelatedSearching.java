@@ -42,11 +42,11 @@ public class UserRelatedSearching extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         searchText = new project.SearchText();
         jLabel3 = new javax.swing.JLabel();
-        sortBy = new javax.swing.JComboBox<>();
+        option = new javax.swing.JComboBox<>();
         searchButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        sortBy1 = new javax.swing.JComboBox<>();
-        jTextField1 = new javax.swing.JTextField();
+        sortBy = new javax.swing.JComboBox<>();
+        number = new javax.swing.JTextField();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -78,12 +78,12 @@ public class UserRelatedSearching extends javax.swing.JPanel {
         jLabel3.setMinimumSize(new java.awt.Dimension(49, 23));
         jLabel3.setPreferredSize(new java.awt.Dimension(49, 23));
 
-        sortBy.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        sortBy.setForeground(new java.awt.Color(127, 127, 127));
-        sortBy.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "equal", "greater", "less" }));
-        sortBy.addActionListener(new java.awt.event.ActionListener() {
+        option.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        option.setForeground(new java.awt.Color(127, 127, 127));
+        option.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "greater", "equal", "less" }));
+        option.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sortByActionPerformed(evt);
+                optionActionPerformed(evt);
             }
         });
 
@@ -101,20 +101,21 @@ public class UserRelatedSearching extends javax.swing.JPanel {
         jLabel1.setForeground(new java.awt.Color(127, 127, 127));
         jLabel1.setText("Number of direct friend:");
 
-        sortBy1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        sortBy1.setForeground(new java.awt.Color(127, 127, 127));
-        sortBy1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "name", "creation date" }));
-        sortBy1.addActionListener(new java.awt.event.ActionListener() {
+        sortBy.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        sortBy.setForeground(new java.awt.Color(127, 127, 127));
+        sortBy.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "name", "creation date" }));
+        sortBy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sortBy1ActionPerformed(evt);
+                sortByActionPerformed(evt);
             }
         });
 
-        jTextField1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jTextField1.setForeground(new java.awt.Color(127, 127, 127));
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        number.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        number.setForeground(new java.awt.Color(127, 127, 127));
+        number.setText("0");
+        number.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                numberActionPerformed(evt);
             }
         });
 
@@ -131,15 +132,15 @@ public class UserRelatedSearching extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(searchText, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(sortBy, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(option, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(number, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(sortBy1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(sortBy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(searchButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(153, Short.MAX_VALUE))
         );
@@ -147,25 +148,26 @@ public class UserRelatedSearching extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(13, 13, 13)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(searchText, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(sortBy1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(sortBy, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(searchText, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(sortBy, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(option, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(number, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void sortByActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sortByActionPerformed
+    private void optionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optionActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_sortByActionPerformed
+    }//GEN-LAST:event_optionActionPerformed
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
         // TODO add your handling code here:
@@ -175,13 +177,13 @@ public class UserRelatedSearching extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_searchTextActionPerformed
 
-    private void sortBy1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sortBy1ActionPerformed
+    private void sortByActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sortByActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_sortBy1ActionPerformed
+    }//GEN-LAST:event_sortByActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void numberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numberActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_numberActionPerformed
 
 //    public void initComoponents() {
 //        DefaultComboBoxModel optionSearchModel = new DefaultComboBoxModel();
@@ -203,15 +205,15 @@ public class UserRelatedSearching extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField number;
+    private javax.swing.JComboBox<String> option;
     private javax.swing.JButton searchButton;
     private project.SearchText searchText;
     private javax.swing.JComboBox<String> sortBy;
-    private javax.swing.JComboBox<String> sortBy1;
     // End of variables declaration//GEN-END:variables
 
     public String getSortBy() {
-        Object selectedItem = sortBy.getSelectedItem();
+        Object selectedItem = option.getSelectedItem();
         if (selectedItem != null) {
             return selectedItem.toString();
         } else {
@@ -224,6 +226,15 @@ public class UserRelatedSearching extends javax.swing.JPanel {
         return searchText.getText();
     }
 
+    public String getOption()
+    {
+        return String.valueOf(option.getSelectedItem());
+    }
+    public String getNumber(){
+        return number.getText();
+    }
+    
+    
     public void addListenerSearchButton(ActionListener listener) {
         searchButton.addActionListener(listener);
     }
