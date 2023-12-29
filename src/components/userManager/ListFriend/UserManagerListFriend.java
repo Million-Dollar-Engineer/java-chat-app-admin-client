@@ -47,7 +47,7 @@ public class UserManagerListFriend extends javax.swing.JPanel {
 
         // Add fake data
         try {
-            for (int i = 0; i < 50; i++) {
+            for (int i = 0; i < 10; i++) {
                 userManagerListFriendTable.addRow(new Object[]{"lenguyenthai123", "Lê Nguyên Thái", "202 Nguyễn Trọng Kỷ", "2003/06/16", "Male", "lnt0995449235@gmail.com", "2023/02/12", "Online", true});
             }
             usernameText.setText(name);
@@ -97,6 +97,7 @@ public class UserManagerListFriend extends javax.swing.JPanel {
 
                     Gson gson = new Gson();
                     User[] users = gson.fromJson(dataJson, User[].class);
+                    System.out.println("toi day");
 
                     publish(users);
 
@@ -117,6 +118,8 @@ public class UserManagerListFriend extends javax.swing.JPanel {
         @Override
         protected void process(List<User[]> chunks) {
             User[] data = chunks.get(chunks.size() - 1);
+            
+            userManagerListFriendTable.clearData();
             for (User user : data) {
                 userManagerListFriendTable.addUserRow(user);
             }

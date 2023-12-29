@@ -1,6 +1,7 @@
-
 package components.userManager.LoginHistory;
 
+import Interface.LoginHistoryUser;
+import Interface.User;
 import components.GroupChatList.ViewAllMember.*;
 import components.GroupChatList.*;
 import java.awt.Color;
@@ -14,24 +15,23 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 public class UserManagerLoginHistoryTable extends JTable {
-    
+
     ListSelectionModel selectionModel;
-    public UserManagerLoginHistoryTable()
-    {
+
+    public UserManagerLoginHistoryTable() {
         setShowHorizontalLines(true);
-        setGridColor(new Color(230,230,230));
+        setGridColor(new Color(230, 230, 230));
         setBackground(Color.WHITE);
         setRowHeight(40);
         getTableHeader().setReorderingAllowed(false);
-        getTableHeader().setDefaultRenderer(new DefaultTableCellRenderer(){
+        getTableHeader().setDefaultRenderer(new DefaultTableCellRenderer() {
             @Override
-            public Component getTableCellRendererComponent (JTable jtable, Object o, boolean bln, boolean bln1,int i,int i1){
-                 UserManagerLoginHistoryTableHeader header = new UserManagerLoginHistoryTableHeader(o + "");
-                 if(i1==1)
-                 {
-                     header.setHorizontalAlignment(JLabel.CENTER);
-                 }
-                 return header;
+            public Component getTableCellRendererComponent(JTable jtable, Object o, boolean bln, boolean bln1, int i, int i1) {
+                UserManagerLoginHistoryTableHeader header = new UserManagerLoginHistoryTableHeader(o + "");
+                if (i1 == 1) {
+                    header.setHorizontalAlignment(JLabel.CENTER);
+                }
+                return header;
             }
         });
         setBorder(null);
@@ -47,18 +47,26 @@ public class UserManagerLoginHistoryTable extends JTable {
 //            }
 //        });
     }
-    
-    public void initComponents(){
+
+    public void clearData() {
+        DefaultTableModel model = (DefaultTableModel) getModel();
+        model.setRowCount(0);
+    }
+
+    public void addLoginHistoryUserRow(LoginHistoryUser user) {
+        addRow(new Object[]{user.loginTime, user.username, user.fullname, user.ip});
+    }
+
+    public void initComponents() {
         selectionModel = getSelectionModel();
         selectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
-    public void addListener(ListSelectionListener listener)
-    {
+
+    public void addListener(ListSelectionListener listener) {
         selectionModel.addListSelectionListener(listener);
     }
 
-    public void addRow(Object[] row)
-    {
+    public void addRow(Object[] row) {
         DefaultTableModel model = (DefaultTableModel) getModel();
         model.addRow(row);
     }

@@ -109,17 +109,17 @@ public class UserCRUD extends javax.swing.JPanel {
                 HttpResponse<String> res = client.send(req, HttpResponse.BodyHandlers.ofString());
 
                 int resCode = res.statusCode();
+                String body = res.body();
                 System.out.println("Response code: " + resCode);
                 System.out.println("Data: " + res.body());
 
-                if (resCode == 200) {
-                    System.out.println("Data" + res);
-                    JOptionPane.showMessageDialog(null, "Delete successfully", "Notify", JOptionPane.INFORMATION_MESSAGE);
+                JSONParser par = new JSONParser();
+                JSONObject res1 = (JSONObject) par.parse(body);
 
+                if (resCode == 200) {
+                    JOptionPane.showMessageDialog(null, String.valueOf(res1.get("message")), "Notify", JOptionPane.INFORMATION_MESSAGE);
                 } else {
-                    String re = String.valueOf(res.body());
-                    System.out.println("Data" + re);
-                    JOptionPane.showMessageDialog(null, "Delete Failed", "ERROR", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, String.valueOf(res1.get("error")),  "ERROR", JOptionPane.ERROR_MESSAGE);
                 }
 
 //                client.()
@@ -130,6 +130,8 @@ public class UserCRUD extends javax.swing.JPanel {
                 e.printStackTrace();
             } catch (InterruptedException e) {
                 e.printStackTrace();
+            } catch (ParseException ex) {
+                Logger.getLogger(UserCRUD.class.getName()).log(Level.SEVERE, null, ex);
             }
             return "Failed";
         }
@@ -189,18 +191,18 @@ public class UserCRUD extends javax.swing.JPanel {
                 HttpResponse<String> res = client.send(req, HttpResponse.BodyHandlers.ofString());
 
                 int resCode = res.statusCode();
+                String body = res.body();
                 System.out.println("Response code: " + resCode);
                 System.out.println("Data: " + res.body());
 
+                JSONParser par = new JSONParser();
+                JSONObject res1 = (JSONObject) par.parse(body);
+
                 if (resCode == 200) {
                     System.out.println("Data" + res);
-                    JOptionPane.showMessageDialog(null, "Update successfully", "Notify", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, String.valueOf(res1.get("message")), "Notify", JOptionPane.INFORMATION_MESSAGE);
                 } else {
-                    String re = String.valueOf(res.body());
-                    System.out.println("Data" + re);
-//                    JSONParser par = new JSONParser();
-//                    JSONObject data = (JSONObject) par.parse(re);
-                    JOptionPane.showMessageDialog(null, "Update Failed", "ERROR", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, String.valueOf(res1.get("error")), "ERROR", JOptionPane.ERROR_MESSAGE);
                 }
 
 //                client.()
@@ -211,6 +213,8 @@ public class UserCRUD extends javax.swing.JPanel {
                 e.printStackTrace();
             } catch (InterruptedException e) {
                 e.printStackTrace();
+            } catch (ParseException ex) {
+                Logger.getLogger(UserCRUD.class.getName()).log(Level.SEVERE, null, ex);
             }
             return "Failed";
         }
@@ -243,11 +247,6 @@ public class UserCRUD extends javax.swing.JPanel {
 
                 URL url = new URL(api);
 
-//                con = (HttpURLConnection) url.openConnection();
-//
-//                con.setRequestMethod("POST");
-//                con.setRequestProperty("Content-Type", "application/json");
-//                con.setDoOutput(true);
                 JSONObject user = new JSONObject();
                 user.put("username", usernameText.getText());
 
@@ -288,20 +287,14 @@ public class UserCRUD extends javax.swing.JPanel {
                 System.out.println("Data" + res.body());
 
                 System.out.println("Data" + res);
+
+                JSONParser par = new JSONParser();
+                JSONObject res1 = (JSONObject) par.parse(resBuf);
                 if (resCode == 200) {
-//                    String resBuf = "";
-//                    String line = "";
-//                    try (BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream()))) {
-//                        while ((line = reader.readLine()) != null) {
-//                            resBuf += line;
-//                        }
-//                    }
-                    JSONParser par = new JSONParser();
-                    JSONObject res1 = (JSONObject) par.parse(resBuf);
 
                     JOptionPane.showMessageDialog(null, res1.get("message").toString(), "Notify", JOptionPane.INFORMATION_MESSAGE);
                 } else {
-                    JOptionPane.showMessageDialog(null, "Create failed", "ERROR", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, res1.get("error").toString(), "ERROR", JOptionPane.ERROR_MESSAGE);
                 }
 
                 return "Done";
@@ -792,7 +785,7 @@ public class UserCRUD extends javax.swing.JPanel {
         idText.setText(id);
         usernameText.setText(username);
         fullnameText.setText(fullname);
-        passwordText.setText(password);
+//        passwordText.setText(password);
 
         if (dateOfBirth.length() != 4) {
             System.out.println("Date: " + dateOfBirthText.getDate());

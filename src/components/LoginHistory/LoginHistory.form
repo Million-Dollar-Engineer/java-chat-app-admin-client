@@ -102,12 +102,12 @@
                   <Editor/>
                   <Renderer/>
                 </Column>
-                <Column maxWidth="200" minWidth="200" prefWidth="200" resizable="true">
+                <Column maxWidth="250" minWidth="250" prefWidth="250" resizable="true">
                   <Title/>
                   <Editor/>
                   <Renderer/>
                 </Column>
-                <Column maxWidth="200" minWidth="200" prefWidth="200" resizable="true">
+                <Column maxWidth="250" minWidth="250" prefWidth="250" resizable="true">
                   <Title/>
                   <Editor/>
                   <Renderer/>

@@ -1,2 +1,0 @@
-project.User
-project.AdminLogin

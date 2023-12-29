@@ -182,12 +182,12 @@ public class LoginHistory extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(loginHistoryTable);
         if (loginHistoryTable.getColumnModel().getColumnCount() > 0) {
-            loginHistoryTable.getColumnModel().getColumn(2).setMinWidth(200);
-            loginHistoryTable.getColumnModel().getColumn(2).setPreferredWidth(200);
-            loginHistoryTable.getColumnModel().getColumn(2).setMaxWidth(200);
-            loginHistoryTable.getColumnModel().getColumn(3).setMinWidth(200);
-            loginHistoryTable.getColumnModel().getColumn(3).setPreferredWidth(200);
-            loginHistoryTable.getColumnModel().getColumn(3).setMaxWidth(200);
+            loginHistoryTable.getColumnModel().getColumn(2).setMinWidth(250);
+            loginHistoryTable.getColumnModel().getColumn(2).setPreferredWidth(250);
+            loginHistoryTable.getColumnModel().getColumn(2).setMaxWidth(250);
+            loginHistoryTable.getColumnModel().getColumn(3).setMinWidth(250);
+            loginHistoryTable.getColumnModel().getColumn(3).setPreferredWidth(250);
+            loginHistoryTable.getColumnModel().getColumn(3).setMaxWidth(250);
         }
 
         refreshButton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N

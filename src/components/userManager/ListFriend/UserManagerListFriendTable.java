@@ -63,6 +63,7 @@ public class UserManagerListFriendTable extends JTable {
     {
         DefaultTableModel model = (DefaultTableModel) getModel();
         model.setRowCount(0);
+        System.out.println("Clear data");
     }
     
     public void addUserRow(User user)
