@@ -37,11 +37,6 @@ public class GroupChatListAllMember extends javax.swing.JPanel {
         this.id = id;
         initComponents();
 
-        // Add fake data
-        for (int i = 0; i < 10; i++) {
-            groupChatListAllMemberTable.addRow(new Object[]{"lenguyenthai123", "lenguyenthai123", "Lê Nguyên Thái", "202 Nguyen Trong Ky", "2003-05-15", "Male", "Lnt0995449235@gmail.com", "2023-23-12", "active"});
-        }
-
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
         groupChatListAllMemberTable.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);

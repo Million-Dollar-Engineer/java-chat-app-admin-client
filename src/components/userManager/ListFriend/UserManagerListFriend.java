@@ -4,6 +4,7 @@
  */
 package components.userManager.ListFriend;
 
+import Interface.Friend;
 import Interface.User;
 import com.google.gson.Gson;
 import components.userManager.LoginHistory.*;
@@ -15,11 +16,13 @@ import java.awt.event.MouseAdapter;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.http.*;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -47,9 +50,6 @@ public class UserManagerListFriend extends javax.swing.JPanel {
 
         // Add fake data
         try {
-            for (int i = 0; i < 10; i++) {
-                userManagerListFriendTable.addRow(new Object[]{"lenguyenthai123", "Lê Nguyên Thái", "202 Nguyễn Trọng Kỷ", "2003/06/16", "Male", "lnt0995449235@gmail.com", "2023/02/12", "Online", true});
-            }
             usernameText.setText(name);
         } catch (Exception err) {
             System.out.println("Loi trong khoi tao");
@@ -60,71 +60,66 @@ public class UserManagerListFriend extends javax.swing.JPanel {
         new CallAPIListFriend().execute();
     }
 
-    private class CallAPIListFriend extends SwingWorker<String, User[]> {
+    private class CallAPIListFriend extends SwingWorker<String, Friend[]> {
 
         @Override
         protected String doInBackground() {
             try {
                 String api = "http://13.215.176.178:8881/admin/friend-list/" + id;
 
-                URL url = new URL(api);
-                HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                HttpClient client = HttpClient.newHttpClient();
+                HttpRequest req = HttpRequest.newBuilder()
+                        .uri(new URI(api))
+                        .GET()
+                        .header("Content-Type", "application/json")
+                        .build();
 
-                con.setRequestMethod("GET");
-                con.setRequestProperty("Content-Type", "application/json");
-                con.setDoOutput(true);
+                HttpResponse<String> res = client.send(req, HttpResponse.BodyHandlers.ofString());
 
-                int resCode = con.getResponseCode();
-                System.out.println("Testing code: " + HttpURLConnection.HTTP_ACCEPTED);
-                if (resCode == HttpURLConnection.HTTP_OK) {
-                    System.out.println("Vao day");
-                    String resBuf = "";
-                    String line = "";
-                    try (BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream()))) {
-                        while ((line = reader.readLine()) != null) {
-                            resBuf += line;
-                        }
-                    } catch (IOException ex) {
-                        Logger.getLogger(UserManagerListFriend.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    System.out.println("Data raw: " + resBuf);
+                int resCode = res.statusCode();
+                String body = res.body();
 
-                    JSONParser par = new JSONParser();
-                    JSONObject res = (JSONObject) par.parse(resBuf);
-                    JSONArray list = (JSONArray) res.get("friendList");
+                JSONParser par = new JSONParser();
 
-                    String dataJson = list.toString();
+                if (resCode == 200) {
+
+                    JSONArray data = (JSONArray) par.parse(body);
+                    String json = data.toString();
 
                     Gson gson = new Gson();
-                    User[] users = gson.fromJson(dataJson, User[].class);
-                    System.out.println("toi day");
+                    Friend[] list = gson.fromJson(json, Friend[].class);
 
-                    publish(users);
-
-                    con.disconnect();
+                    publish(list);
 
                     return "Done";
-                }
-                con.disconnect();
-                return "Failed";
-            } catch (ParseException e) {
+                } else {
+                    JSONObject err = (JSONObject) par.parse(body);
+                    JOptionPane.showMessageDialog(null, String.valueOf(err.get("error")), "ERROR", JOptionPane.ERROR_MESSAGE);
 
+                    return "Failed";
+                }
             } catch (IOException ex) {
+                Logger.getLogger(UserManagerListFriend.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (URISyntaxException ex) {
+                Logger.getLogger(UserManagerListFriend.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(UserManagerListFriend.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ParseException ex) {
                 Logger.getLogger(UserManagerListFriend.class.getName()).log(Level.SEVERE, null, ex);
             }
             return "failed";
         }
 
         @Override
-        protected void process(List<User[]> chunks) {
-            User[] data = chunks.get(chunks.size() - 1);
-            
+        protected void process(List<Friend[]> chunks) {
+            Friend[] data = chunks.get(chunks.size() - 1);
+
             userManagerListFriendTable.clearData();
-            for (User user : data) {
-                userManagerListFriendTable.addUserRow(user);
+            for (Friend user : data) {
+                userManagerListFriendTable.addFriendRow(user);
             }
         }
-        
+
     }
 
     /**
@@ -140,7 +135,7 @@ public class UserManagerListFriend extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         usernameText = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        jScrollPane2 = new javax.swing.JScrollPane();
         userManagerListFriendTable = new components.userManager.ListFriend.UserManagerListFriendTable();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -160,32 +155,25 @@ public class UserManagerListFriend extends javax.swing.JPanel {
         usernameText.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         usernameText.setForeground(new java.awt.Color(51, 51, 51));
 
-        jScrollPane1.setBorder(null);
+        jScrollPane2.setBorder(null);
 
         userManagerListFriendTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Id", "User Name", "Full Name", "Address", "Date of Birth", "Sex", "Email", "Last Loign", "Status"
+                "User Name", "Full Name"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                true, false, false, false, false, false, false, false, false
+                java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
         });
-        jScrollPane1.setViewportView(userManagerListFriendTable);
+        jScrollPane2.setViewportView(userManagerListFriendTable);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -194,7 +182,7 @@ public class UserManagerListFriend extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane2)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(previousPageUserManager)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -216,8 +204,8 @@ public class UserManagerListFriend extends javax.swing.JPanel {
                     .addComponent(usernameText, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(previousPageUserManager, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 633, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 645, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -237,7 +225,7 @@ public class UserManagerListFriend extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel previousPageUserManager;
     private components.userManager.ListFriend.UserManagerListFriendTable userManagerListFriendTable;
     private javax.swing.JLabel usernameText;

@@ -1,6 +1,7 @@
 
 package components.userManager.ListFriend;
 
+import Interface.Friend;
 import Interface.User;
 import components.userManager.LoginHistory.*;
 import components.GroupChatList.ViewAllMember.*;
@@ -66,9 +67,9 @@ public class UserManagerListFriendTable extends JTable {
         System.out.println("Clear data");
     }
     
-    public void addUserRow(User user)
+    public void addFriendRow(Friend user)
     {
-        addRow(new Object[]{user.id,user.username,user.password,user.fullname, user.address, user.dateOfBirth,user.sex,user.email,user.lastActive,user.status});
+        addRow(new Object[]{user.username,user.name});
     }
     
     public void addRow(Object[] row)

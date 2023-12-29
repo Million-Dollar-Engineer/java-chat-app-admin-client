@@ -163,7 +163,8 @@ public class UserCRUD extends javax.swing.JPanel {
                 String api = "http://13.215.176.178:8881/admin/all-user/update-user";
 
                 JSONObject user = new JSONObject();
-
+                
+                user.put("id", idText.getText());
                 user.put("username", usernameText.getText());
                 String password = String.valueOf(passwordText.getPassword());
                 user.put("password", password);
@@ -785,7 +786,7 @@ public class UserCRUD extends javax.swing.JPanel {
         idText.setText(id);
         usernameText.setText(username);
         fullnameText.setText(fullname);
-//        passwordText.setText(password);
+        passwordText.setText("");
 
         if (dateOfBirth.length() != 4) {
             System.out.println("Date: " + dateOfBirthText.getDate());
