@@ -41,7 +41,6 @@ public class GroupChatList extends javax.swing.JPanel {
 //        groupChatListTable.addRow(new Object[]{"2003/12/02", "Super Kamen Rider", "20", "3"});
 //        groupChatListTable.addRow(new Object[]{"2003/12/02", "Super Kamen Rider", "20", "3"});
 //        groupChatListTable.addRow(new Object[]{"2003/12/02", "Super Kamen Rider", "20", "3"});
-
         groupChatListTable.addListener(new ListenerTable());
 
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
@@ -58,6 +57,14 @@ public class GroupChatList extends javax.swing.JPanel {
         new CallAPIGroupChatSearching().execute();
 
         groupChatListSearching.addListenerSearchButton(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new CallAPIGroupChatSearching().execute();
+            }
+        }
+        );
+        
+        groupChatListSearching.addListenerRefreshButton(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new CallAPIGroupChatSearching().execute();
@@ -254,9 +261,11 @@ public class GroupChatList extends javax.swing.JPanel {
     public String getGroupNametext() {
         return groupChatListForward.getGroupNameText();
     }
+
     public String getGroupIdText() {
         return groupChatListForward.getGroupIdText();
     }
+
     public class ListenerTable implements ListSelectionListener {
 
         @Override

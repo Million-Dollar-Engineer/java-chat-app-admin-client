@@ -119,7 +119,7 @@ public class UserCRUD extends javax.swing.JPanel {
                 if (resCode == 200) {
                     JOptionPane.showMessageDialog(null, String.valueOf(res1.get("message")), "Notify", JOptionPane.INFORMATION_MESSAGE);
                 } else {
-                    JOptionPane.showMessageDialog(null, String.valueOf(res1.get("error")),  "ERROR", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, String.valueOf(res1.get("error")), "ERROR", JOptionPane.ERROR_MESSAGE);
                 }
 
 //                client.()
@@ -163,7 +163,7 @@ public class UserCRUD extends javax.swing.JPanel {
                 String api = "http://13.215.176.178:8881/admin/all-user/update-user";
 
                 JSONObject user = new JSONObject();
-                
+
                 user.put("id", idText.getText());
                 user.put("username", usernameText.getText());
                 String password = String.valueOf(passwordText.getPassword());
@@ -806,6 +806,9 @@ public class UserCRUD extends javax.swing.JPanel {
             dateOfBirthText.setDate(tmp);
         }
 
+        System.out.println("Sex: " + sex);
+        System.out.println("Status: " + status);
+
         if ("male".equals(sex)) {
             sexText.setSelectedIndex(0);
         }
@@ -818,8 +821,6 @@ public class UserCRUD extends javax.swing.JPanel {
         if ("null".equals(sex)) {
             sexText.setSelectedIndex(3);
         }
-        addressText.setText(address);
-        emailText.setText(email);
 
         if ("active".equals(status)) {
             statusText.setSelectedIndex(0);
@@ -827,10 +828,12 @@ public class UserCRUD extends javax.swing.JPanel {
         if ("inactive".equals(status)) {
             statusText.setSelectedIndex(1);
         }
-        if ("ban".equals(status)) {
+        if ("banned".equals(status)) {
             statusText.setSelectedIndex(2);
         }
-
+        
+        addressText.setText(address);
+        emailText.setText(email);
         setBanButton(ban);
     }
 

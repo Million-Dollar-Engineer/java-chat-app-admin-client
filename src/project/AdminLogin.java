@@ -197,10 +197,8 @@ public class AdminLogin extends javax.swing.JFrame {
 
     public String callAPI() {
         try {
-//            String username = usernameText.getText();
-//            String password = String.valueOf(passwordText.getPassword());
-            String username = "lnthai";
-            String password = "123456";
+            String username = usernameText.getText();
+            String password = String.valueOf(passwordText.getPassword());
 
             String apiUrl = "http://13.215.176.178:8881/user/login";
             URL url = new URL(apiUrl);

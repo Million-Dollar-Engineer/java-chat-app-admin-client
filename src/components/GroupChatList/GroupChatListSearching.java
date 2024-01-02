@@ -137,7 +137,6 @@ public class GroupChatListSearching extends javax.swing.JPanel {
 //        optionSearchModel.addElement("Status");
 //        sortBy = new JComboBox(optionSearchModel);
 //    }
-
     protected void paintComponent(Graphics grphcs) {
         Graphics2D g2 = (Graphics2D) grphcs;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -168,8 +167,11 @@ public class GroupChatListSearching extends javax.swing.JPanel {
         return searchText.getText();
     }
 
-    
     public void addListenerSearchButton(ActionListener listener) {
+        searchButton.addActionListener(listener);
+    }
+
+    public void addListenerRefreshButton(ActionListener listener) {
         refreshButton.addActionListener(listener);
     }
 }

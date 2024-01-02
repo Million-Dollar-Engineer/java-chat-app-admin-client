@@ -285,7 +285,7 @@ public class UserManager extends javax.swing.JPanel {
                     String dateOfBirth = getStringValue(userManagerTable.getValueAt(selectedRow, 5));
                     String sex = getStringValue(userManagerTable.getValueAt(selectedRow, 6));
                     String email = getStringValue(userManagerTable.getValueAt(selectedRow, 7));
-                    String status = getStringValue(userManagerTable.getValueAt(selectedRow, 9));
+                    String status = getStringValue(userManagerTable.getValueAt(selectedRow, 10));
                     // In thông tin của dòng được chọn
                     userCRUD.setInfo(id, username, fullname, password, dateOfBirth, sex, email, address, status, true);
                 }
