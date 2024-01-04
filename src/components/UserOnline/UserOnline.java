@@ -79,7 +79,7 @@ public class UserOnline extends javax.swing.JPanel {
             String sortBy = userOnlineSearching.getSortBy();
             System.out.println("Sort by: " + sortBy);
             if (sortBy.equals("name")) {
-                sortBy = "full_name";
+                sortBy = "username";
             } else {
                 sortBy = "created_at";
             }

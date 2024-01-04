@@ -80,10 +80,11 @@ public class UserRelated extends javax.swing.JPanel {
 
             String sortBy = userRelatedSearching.getSortBy();
             if (sortBy == "name") {
-                sortBy = "full_name";
+                sortBy = "username";
             } else {
                 sortBy = "created_at";
             }
+            String orderBy = userRelatedSearching.getOrderBy();
 
             String fullname = userRelatedSearching.getSearchText();
             String option = userRelatedSearching.getOption();
@@ -98,9 +99,9 @@ public class UserRelated extends javax.swing.JPanel {
 
 //            String api = "http://13.215.176.178:8881/admin/friend-and-fof" + "?sortBy=" + sortBy +"&order=asc"+ "&" + option + "=" + number + "&username=" + username;
 //                    + "&username=" + username;
-            String api="";
+            String api = "";
             try {
-                api = DataBase.serverUrl + "/admin/friend-and-fof" + "?sortBy=" + sortBy + "&order=asc" + "&" + option + "=" + number + "&username=" +  URLEncoder.encode(fullname, "UTF-8");
+                api = DataBase.serverUrl + "/admin/friend-and-fof" + "?sortBy=" + sortBy + "&order=" + orderBy + "&" + option + "=" + number + "&username=" + URLEncoder.encode(fullname, "UTF-8");
             } catch (UnsupportedEncodingException ex) {
                 Logger.getLogger(UserRelated.class.getName()).log(Level.SEVERE, null, ex);
             }

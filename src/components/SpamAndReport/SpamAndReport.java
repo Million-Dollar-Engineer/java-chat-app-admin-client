@@ -75,7 +75,10 @@ public class SpamAndReport extends javax.swing.JPanel {
             try {
 
                 String sortBy = spamAndReportSearching.getSortBy();
-                if (sortBy.equals("creation date")) {
+                if (sortBy.equals("name")) {
+                    sortBy = "username";
+                }
+                else{
                     sortBy = "time";
                 }
 
