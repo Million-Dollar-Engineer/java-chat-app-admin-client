@@ -30,6 +30,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import project.DataBase;
 
 /**
  *
@@ -65,7 +66,8 @@ public class UserManagerListFriend extends javax.swing.JPanel {
         @Override
         protected String doInBackground() {
             try {
-                String api = "http://13.215.176.178:8881/admin/friend-list/" + id;
+//                String api = "http://13.215.176.178:8881/admin/friend-list/" + id;
+                String api = DataBase.serverUrl+"/admin/friend-list/" + id;
 
                 HttpClient client = HttpClient.newHttpClient();
                 HttpRequest req = HttpRequest.newBuilder()

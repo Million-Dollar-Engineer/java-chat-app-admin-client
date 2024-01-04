@@ -39,8 +39,9 @@ public class GroupChatListSearching extends javax.swing.JPanel {
         searchText = new project.SearchText();
         jLabel3 = new javax.swing.JLabel();
         sortBy = new javax.swing.JComboBox<>();
-        refreshButton = new javax.swing.JButton();
         searchButton = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        orderBy = new javax.swing.JComboBox<>();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -61,16 +62,6 @@ public class GroupChatListSearching extends javax.swing.JPanel {
             }
         });
 
-        refreshButton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        refreshButton.setForeground(new java.awt.Color(127, 127, 127));
-        refreshButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/raven/icon/4.png"))); // NOI18N
-        refreshButton.setText("Refresh");
-        refreshButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                refreshButtonActionPerformed(evt);
-            }
-        });
-
         searchButton.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         searchButton.setForeground(new java.awt.Color(127, 127, 127));
         searchButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/raven/icon/search.png"))); // NOI18N
@@ -78,6 +69,19 @@ public class GroupChatListSearching extends javax.swing.JPanel {
         searchButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchButtonActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(127, 127, 127));
+        jLabel4.setText("Order:");
+
+        orderBy.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        orderBy.setForeground(new java.awt.Color(127, 127, 127));
+        orderBy.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "asc", "desc" }));
+        orderBy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                orderByActionPerformed(evt);
             }
         });
 
@@ -95,25 +99,30 @@ public class GroupChatListSearching extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(sortBy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addComponent(orderBy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(refreshButton, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(47, 47, 47))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(refreshButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(sortBy)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(searchText, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(orderBy)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))))
+                            .addComponent(jLabel4)))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(searchText, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(sortBy))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -122,13 +131,13 @@ public class GroupChatListSearching extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_sortByActionPerformed
 
-    private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_refreshButtonActionPerformed
-
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_searchButtonActionPerformed
+
+    private void orderByActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderByActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_orderByActionPerformed
 
 //    public void initComoponents() {
 //        DefaultComboBoxModel optionSearchModel = new DefaultComboBoxModel();
@@ -147,7 +156,8 @@ public class GroupChatListSearching extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JButton refreshButton;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JComboBox<String> orderBy;
     private javax.swing.JButton searchButton;
     private project.SearchText searchText;
     private javax.swing.JComboBox<String> sortBy;
@@ -155,6 +165,16 @@ public class GroupChatListSearching extends javax.swing.JPanel {
 
     public String getSortBy() {
         Object selectedItem = sortBy.getSelectedItem();
+        if (selectedItem != null) {
+            return selectedItem.toString();
+        } else {
+            System.out.println("No item selected.");
+            return null;
+        }
+    }
+
+    public String getOrderBy() {
+        Object selectedItem = orderBy.getSelectedItem();
         if (selectedItem != null) {
             return selectedItem.toString();
         } else {
@@ -172,6 +192,6 @@ public class GroupChatListSearching extends javax.swing.JPanel {
     }
 
     public void addListenerRefreshButton(ActionListener listener) {
-        refreshButton.addActionListener(listener);
+//        refreshButton.addActionListener(listener);
     }
 }

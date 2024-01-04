@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.SwingWorker;
 import javax.swing.event.ListSelectionEvent;
@@ -36,6 +37,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import project.DataBase;
 
 /**
  *
@@ -48,11 +50,6 @@ public class UserRelated extends javax.swing.JPanel {
      */
     public UserRelated() {
         initComponents();
-
-        // Add fake data
-        for (int i = 0; i < 50; i++) {
-            userRelatedTable.addRow(new Object[]{"lenguyenthai123", "Lê Nguyên Thái", "lnt0995449235@gmail.com", "2023/11/02", "Active"});
-        }
 
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
@@ -80,13 +77,13 @@ public class UserRelated extends javax.swing.JPanel {
         public String doInBackground() {
 
             String sortBy = userRelatedSearching.getSortBy();
-            if (sortBy == "creation date") {
-                sortBy = "created_at";
+            if (sortBy == "name") {
+                sortBy = "full_name";
             } else {
-                sortBy = "username";
+                sortBy = "created_at";
             }
 
-            String username = userRelatedSearching.getSearchText();
+            String fullname = userRelatedSearching.getSearchText();
             String option = userRelatedSearching.getOption();
             if (option.equals("greater")) {
                 option = "greaterThan";
@@ -97,8 +94,9 @@ public class UserRelated extends javax.swing.JPanel {
 
             String number = userRelatedSearching.getNumber();
 
-            String api = "http://13.215.176.178:8881/admin/friend-and-fof" + "?sortBy=" + sortBy + "&" + option + "=" + number;
+//            String api = "http://13.215.176.178:8881/admin/friend-and-fof" + "?sortBy=" + sortBy +"&order=asc"+ "&" + option + "=" + number + "&username=" + username;
 //                    + "&username=" + username;
+            String api = DataBase.serverUrl + "/admin/friend-and-fof" + "?sortBy=" + sortBy + "&order=asc" + "&" + option + "=" + number + "&name=" + fullname;
 
             System.out.println("Link :" + api);
             HttpClient client = HttpClient.newHttpClient();
@@ -114,13 +112,13 @@ public class UserRelated extends javax.swing.JPanel {
 
                 int resCode = res.statusCode();
                 String body = res.body();
+                JSONParser par = new JSONParser();
+                JSONObject o = (JSONObject) par.parse(body);
                 if (resCode == 200) {
                     System.out.println("Call API thanh cong");
 
                     System.out.println("Data: " + body);
 
-                    JSONParser par = new JSONParser();
-                    JSONObject o = (JSONObject) par.parse(body);
                     JSONArray list = (JSONArray) o.get("data");
 
                     String json = list.toString();
@@ -132,6 +130,7 @@ public class UserRelated extends javax.swing.JPanel {
                     return "Done";
                 } else {
                     System.out.println("Call API that bai");
+                    JOptionPane.showMessageDialog(null, String.valueOf(o.get("error")), "ERROR", JOptionPane.ERROR_MESSAGE);
                     return "Failed";
                 }
             } catch (IOException e) {

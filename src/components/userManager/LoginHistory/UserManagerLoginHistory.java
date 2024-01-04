@@ -30,6 +30,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import project.DataBase;
 
 /**
  *
@@ -47,9 +48,9 @@ public class UserManagerLoginHistory extends javax.swing.JPanel {
         username = name;
         // Add fake data
         try {
-            for (int i = 0; i < 50; i++) {
-                userManagerLoginHistoryTable.addRow(new Object[]{"2023/12/6"});
-            }
+//            for (int i = 0; i < 50; i++) {
+////                userManagerLoginHistoryTable.addRow(new Object[]{"2023/12/6"});
+//            }
             usernameText.setText(name);
         } catch (Exception err) {
             System.out.println("Loi trong khoi tao");
@@ -74,7 +75,10 @@ public class UserManagerLoginHistory extends javax.swing.JPanel {
         protected String doInBackground() {
             try {
 
-                String api = "http://13.215.176.178:8881/admin/login-histories?username=" + username;
+//                String api = "http://13.215.176.178:8881/admin/login-histories?username=" + username + "&orderBy=desc";
+
+                String api = DataBase.serverUrl + "/admin/login-histories?username=" + username + "&orderBy=desc";
+
                 HttpClient client = HttpClient.newHttpClient();
 
                 HttpRequest req = HttpRequest.newBuilder()

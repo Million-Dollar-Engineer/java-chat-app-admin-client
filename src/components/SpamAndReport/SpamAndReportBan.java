@@ -27,6 +27,7 @@ import javax.swing.SwingWorker;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import project.DataBase;
 
 /**
  *
@@ -59,7 +60,8 @@ public class SpamAndReportBan extends javax.swing.JPanel {
                 o.put("id", id);
                 String json = o.toString();
 
-                String api = "http://13.215.176.178:8881/admin/ban-account";
+//                String api = "http://13.215.176.178:8881/admin/ban-account";
+                String api = DataBase.serverUrl + "/admin/ban-account";
 
                 HttpClient client = HttpClient.newHttpClient();
                 HttpRequest req = HttpRequest.newBuilder()

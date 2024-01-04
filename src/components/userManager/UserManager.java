@@ -21,6 +21,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -28,6 +29,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import project.DataBase;
 
 /**
  *
@@ -54,7 +56,7 @@ public class UserManager extends javax.swing.JPanel {
 
         // Searching 
         searching.addListenerSearchButton(new ListenerSearching());
-        new APICallWorkerSearching().execute();
+        new Thread(() -> new APICallWorkerSearching().execute()).start();
         setVisible(true);
     }
 
@@ -83,7 +85,7 @@ public class UserManager extends javax.swing.JPanel {
             HttpURLConnection con = null;
             try {
                 //Call API in here
-                String linkAPI = "http://13.215.176.178:8881/admin/all-user";
+                String linkAPI = DataBase.serverUrl+"/admin/all-user";
 
                 String query1 = "";
                 if ("name".equals(searching.getOptionSearch())) {
@@ -160,10 +162,14 @@ public class UserManager extends javax.swing.JPanel {
         @Override
         protected void process(List<User[]> chunks) {
             User[] users = chunks.get(chunks.size() - 1);
-            userManagerTable.clearData();
-            for (int i = 0; i < users.length; i++) {
-                userManagerTable.addUserRow(users[i]);
-            }// Doing update
+
+            SwingUtilities.invokeLater(() -> {
+                userManagerTable.clearData();
+                for (int i = 0; i < users.length; i++) {
+                    userManagerTable.addUserRow(users[i]);
+                }
+            });
+
         }
 
         @Override

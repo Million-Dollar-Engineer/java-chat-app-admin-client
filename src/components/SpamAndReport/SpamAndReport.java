@@ -29,6 +29,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import project.DataBase;
 
 /**
  *
@@ -44,9 +45,9 @@ public class SpamAndReport extends javax.swing.JPanel {
 
         spamAndReportTable.addListener(new ListenerTable());
         // Add fake data
-        for (int i = 0; i < 50; i++) {
-            spamAndReportTable.addRow(new Object[]{"lenguyenthai123", "Có lời lẽ không phù hợp i lẽ không phù hợp i lẽ không phù hợp i lẽ không phù hợp i lẽ không phù hợp i lẽ không phù hợp i lẽ không phù hợp i lẽ không phù hợp i lẽ không phù hợp i lẽ không phù hợp i lẽ không phù hợp i lẽ không phù hợp i lẽ không phù hợp i lẽ không phù hợp i lẽ không phù hợp i lẽ không phù hợp i lẽ không phù hợp i lẽ không phù hợp i lẽ không phù hợp i lẽ không phù hợp i lẽ không phù hợp i lẽ không phù hợp i lẽ không phù hợp i lẽ không phù hợp i lẽ không phù hợp i lẽ không phù hợp i lẽ không phù hợp i lẽ không phù hợp i lẽ không phù hợp i lẽ không phù hợp i lẽ không phù hợp cần phải được thanh lọc", "2023/12/6", "tranhuykhanh"});
-        }
+//        for (int i = 0; i < 50; i++) {
+//            spamAndReportTable.addRow(new Object[]{"lenguyenthai123", "Có lời lẽ không phù hợp i lẽ không phù hợp i lẽ không phù hợp i lẽ không phù hợp i lẽ không phù hợp i lẽ không phù hợp i lẽ không phù hợp i lẽ không phù hợp i lẽ không phù hợp i lẽ không phù hợp i lẽ không phù hợp i lẽ không phù hợp i lẽ không phù hợp i lẽ không phù hợp i lẽ không phù hợp i lẽ không phù hợp i lẽ không phù hợp i lẽ không phù hợp i lẽ không phù hợp i lẽ không phù hợp i lẽ không phù hợp i lẽ không phù hợp i lẽ không phù hợp i lẽ không phù hợp i lẽ không phù hợp i lẽ không phù hợp i lẽ không phù hợp i lẽ không phù hợp i lẽ không phù hợp i lẽ không phù hợp i lẽ không phù hợp cần phải được thanh lọc", "2023/12/6", "tranhuykhanh"});
+//        }
 
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
@@ -78,6 +79,8 @@ public class SpamAndReport extends javax.swing.JPanel {
                     sortBy = "time";
                 }
 
+                String orderBy = spamAndReportSearching.getOrderBy();
+
                 String name = spamAndReportSearching.getSearchText();
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -89,8 +92,9 @@ public class SpamAndReport extends javax.swing.JPanel {
 
                 System.out.println("Date: " + startTime + "   " + endTime);
 
-                String api = "http://13.215.176.178:8881/admin/spam-reports"+"?sortBy="+sortBy+"&username="+name+"&startTime="+startTime+"&endTime="+endTime;
-
+//                String api = "http://13.215.176.178:8881/admin/spam-reports" + "?sortBy=" + sortBy + "&username=" + name + "&startTime=" + startTime + "&endTime=" + endTime;
+                String api = DataBase.serverUrl + "/admin/spam-reports" + "?sortBy=" + sortBy + "&order=" + orderBy + "&username=" + name + "&startTime=" + startTime + "&endTime=" + endTime;
+                System.out.println("API: "+ api);
                 HttpClient client = HttpClient.newHttpClient();
                 HttpRequest req = HttpRequest.newBuilder()
                         .uri(new URI(api))
@@ -102,7 +106,7 @@ public class SpamAndReport extends javax.swing.JPanel {
                 System.out.println("Response Code: " + res.statusCode());
 //                System.out.println("Data: "+ res.body());
                 String body = res.body();
-                System.out.println("Body: "+body );
+                System.out.println("Body: " + body);
                 if (res.statusCode() == 200) {
                     System.out.println("Call API thanh cong");
 
@@ -132,10 +136,10 @@ public class SpamAndReport extends javax.swing.JPanel {
 
         @Override
         public void process(List<Report[]> chunks) {
-             spamAndReportTable.clearData();
+            spamAndReportTable.clearData();
             Report[] data = chunks.get(chunks.size() - 1);
             for (Report group : data) {
-                   spamAndReportTable.addReportRow(group);
+                spamAndReportTable.addReportRow(group);
             }
         }
     }

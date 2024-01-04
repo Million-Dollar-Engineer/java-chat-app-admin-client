@@ -19,6 +19,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import project.DataBase;
 
 public class FormRegisteredChart extends javax.swing.JPanel {
 
@@ -60,8 +61,9 @@ public class FormRegisteredChart extends javax.swing.JPanel {
         @Override
         public String doInBackground() {
 
-            String api = "http://13.215.176.178:8881/admin/users-each-month" + "?year=" + registeredChartSearching.getYear();
-
+//            String api = "http://13.215.176.178:8881/admin/users-each-month" + "?year=" + registeredChartSearching.getYear();
+            String api = DataBase.serverUrl + "/admin/users-each-month" + "?year=" + registeredChartSearching.getYear();
+            
             HttpClient client = HttpClient.newHttpClient();
             try {
 

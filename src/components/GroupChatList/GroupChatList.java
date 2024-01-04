@@ -22,6 +22,7 @@ import java.net.http.*;
 import java.util.List;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
+import project.DataBase;
 
 /**
  *
@@ -35,12 +36,6 @@ public class GroupChatList extends javax.swing.JPanel {
     public GroupChatList() {
         initComponents();
 
-//        groupChatListTable.addRow(new Object[]{"2003/12/02", "Super Kamen Rider", "20", "3"});
-//        groupChatListTable.addRow(new Object[]{"2003/12/02", "Super Kamen Rider", "20", "3"});
-//        groupChatListTable.addRow(new Object[]{"2003/12/02", "Super Kamen Rider", "20", "3"});
-//        groupChatListTable.addRow(new Object[]{"2003/12/02", "Super Kamen Rider", "20", "3"});
-//        groupChatListTable.addRow(new Object[]{"2003/12/02", "Super Kamen Rider", "20", "3"});
-//        groupChatListTable.addRow(new Object[]{"2003/12/02", "Super Kamen Rider", "20", "3"});
         groupChatListTable.addListener(new ListenerTable());
 
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
@@ -83,10 +78,11 @@ public class GroupChatList extends javax.swing.JPanel {
                 if (sortBy.equals("creation date")) {
                     sortBy = "time";
                 }
-
+                String order = groupChatListSearching.getOrderBy();
                 String name = groupChatListSearching.getSearchText();
-
-                String api = "http://13.215.176.178:8881/admin/group-chat" + "?sortBy=" + sortBy + "&name=" + name;
+                    
+//                String api = "http://13.215.176.178:8881/admin/group-chat" + "?sortBy=" + sortBy + "&name=" + name+"&order="+order;
+                String api = DataBase.serverUrl + "/admin/group-chat" + "?sortBy=" + sortBy + "&name=" + name+"&order="+order;
 
                 HttpClient client = HttpClient.newHttpClient();
                 HttpRequest req = HttpRequest.newBuilder()

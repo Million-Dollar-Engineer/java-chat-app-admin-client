@@ -20,6 +20,7 @@ import javax.swing.SwingWorker;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import project.DataBase;
 
 /**
  *
@@ -50,7 +51,9 @@ public class GroupChatListAllMember extends javax.swing.JPanel {
         @Override
         protected String doInBackground() {
             try {
-                String api = "http://13.215.176.178:8881/admin/group-chat-member/" + id;
+//                String api = "http://13.215.176.178:8881/admin/group-chat-member/" + id;
+                String api = DataBase.serverUrl + "/admin/group-chat-member/" + id;
+
                 System.out.println("API all member: " + api);
 
                 HttpClient client = HttpClient.newHttpClient();

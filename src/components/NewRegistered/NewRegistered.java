@@ -34,6 +34,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import project.DataBase;
 
 /**
  *
@@ -51,7 +52,6 @@ public class NewRegistered extends javax.swing.JPanel {
 //        for (int i = 0; i < 50; i++) {
 //            newRegisteredTable.addRow(new Object[]{"lenguyenthai123", "Lê Nguyên Thái", "lnt0995449235@gmail.com", "2023/11/02", "Active"});
 //        }
-
 //        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
 //        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
 //        newRegisteredTable.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
@@ -84,9 +84,11 @@ public class NewRegistered extends javax.swing.JPanel {
             String order = newRegisteredSearching.getOrder();
             String startTime = newRegisteredSearching.getStartTime();
             String endTime = newRegisteredSearching.getEndTime();
-            String username = newRegisteredSearching.getSearchText();
+            String fullname = newRegisteredSearching.getSearchText();
 
-            String api = "http://13.215.176.178:8881/admin/all-user" + "?sortBy=" + sortBy + "&order=" + order;
+//            String api = "http://13.215.176.178:8881/admin/all-user" + "?sortBy=" + sortBy + "&order=" + order + "&fullname=" + fullname;
+            String api = DataBase.serverUrl + "/admin/all-user" + "?sortBy=" + sortBy + "&order=" + order + "&fullname=" + fullname;
+
             api = api + "&startTime=" + startTime + "&endTime=" + endTime;
 
 //                    + "&username=" + username;

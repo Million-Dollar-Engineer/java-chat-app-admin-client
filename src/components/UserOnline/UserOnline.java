@@ -36,6 +36,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import project.DataBase;
 
 /**
  *
@@ -53,7 +54,6 @@ public class UserOnline extends javax.swing.JPanel {
 //        for (int i = 0; i < 50; i++) {
 //            userOnlineTable.addRow(new Object[]{"lenguyenthai123", "Lê Nguyên Thái", "lnt0995449235@gmail.com", "2023/11/02", "Active"});
 //        }
-
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
         userOnlineTable.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
@@ -77,10 +77,11 @@ public class UserOnline extends javax.swing.JPanel {
         public String doInBackground() {
 
             String sortBy = userOnlineSearching.getSortBy();
-            if (sortBy == "creation date") {
-                sortBy = "created_at";
-            } else {
+            System.out.println("Sort by: " + sortBy);
+            if (sortBy.equals("name")) {
                 sortBy = "username";
+            } else {
+                sortBy = "created_at";
             }
 
             String order = userOnlineSearching.getOrder();
@@ -98,11 +99,12 @@ public class UserOnline extends javax.swing.JPanel {
 
             String number = userOnlineSearching.getNumber();
 
-            String api = "http://13.215.176.178:8881/admin/active-user-and-relevant-info" + "?sortBy=" + sortBy + "&order=" + order + "&" + option + "=" + number;
-            api=api+"&startTime="+startTime+"&endTime="+endTime;
-            
-//                    + "&username=" + username;
+//            String api = "http://13.215.176.178:8881/admin/active-user-and-relevant-info" + "?sortBy=" + sortBy + "&order=" + order + "&" + option + "=" + number + "&username=" + username;
+            String api = DataBase.serverUrl + "/admin/active-user-and-relevant-info" + "?sortBy=" + sortBy + "&order=" + order + "&" + option + "=" + number + "&username=" + username;
 
+            api = api + "&startTime=" + startTime + "&endTime=" + endTime;
+
+//                    + "&username=" + username;
             System.out.println("Link :" + api);
             HttpClient client = HttpClient.newHttpClient();
             try {

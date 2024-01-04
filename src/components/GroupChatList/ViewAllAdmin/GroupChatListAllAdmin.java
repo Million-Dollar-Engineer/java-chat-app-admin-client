@@ -23,6 +23,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import project.DataBase;
 
 /**
  *
@@ -47,7 +48,7 @@ public class GroupChatListAllAdmin extends javax.swing.JPanel {
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
         groupChatListAllAdminTable.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
-        
+
         new CallAPIGroupChatAllAdmin().execute();
     }
 
@@ -56,7 +57,9 @@ public class GroupChatListAllAdmin extends javax.swing.JPanel {
         @Override
         protected String doInBackground() {
             try {
-                String api = "http://13.215.176.178:8881/admin/group-chat-member/" + id +"?admin=true";
+//                String api = "http://13.215.176.178:8881/admin/group-chat-member/" + id + "?admin=true";
+                String api = DataBase.serverUrl + "/admin/group-chat-member/" + id + "?admin=true";
+
                 System.out.println("API all member: " + api);
 
                 HttpClient client = HttpClient.newHttpClient();

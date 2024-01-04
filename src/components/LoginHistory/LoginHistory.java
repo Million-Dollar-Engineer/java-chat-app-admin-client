@@ -28,6 +28,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import project.DataBase;
 
 /**
  *
@@ -65,7 +66,11 @@ public class LoginHistory extends javax.swing.JPanel {
         protected String doInBackground() {
             try {
 
-                String api = "http://13.215.176.178:8881/admin/login-histories";
+                String orderBy = String.valueOf(order.getSelectedItem());
+                System.out.println("Order :" + orderBy);
+//                String api = "http://13.215.176.178:8881/admin/login-histories" + "?orderBy=" + orderBy;
+                String api = DataBase.serverUrl + "/admin/login-histories" + "?orderBy=" + orderBy;
+
 
                 URL url = new URL(api);
                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -148,6 +153,8 @@ public class LoginHistory extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         loginHistoryTable = new components.LoginHistory.LoginHistoryTable();
         refreshButton = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        order = new javax.swing.JComboBox<>();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -200,6 +207,14 @@ public class LoginHistory extends javax.swing.JPanel {
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(127, 127, 127));
+        jLabel2.setText("Order:");
+
+        order.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        order.setForeground(new java.awt.Color(127, 127, 127));
+        order.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "desc", "asc" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -211,6 +226,10 @@ public class LoginHistory extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(order, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(refreshButton, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(53, 53, 53))))
         );
@@ -224,7 +243,10 @@ public class LoginHistory extends javax.swing.JPanel {
                         .addGap(33, 33, 33))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(refreshButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(refreshButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(order, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
                 .addContainerGap())
@@ -244,8 +266,10 @@ public class LoginHistory extends javax.swing.JPanel {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private components.LoginHistory.LoginHistoryTable loginHistoryTable;
+    private javax.swing.JComboBox<String> order;
     private javax.swing.JButton refreshButton;
     // End of variables declaration//GEN-END:variables
 }

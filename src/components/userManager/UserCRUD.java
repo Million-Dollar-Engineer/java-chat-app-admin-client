@@ -42,6 +42,7 @@ import java.util.logging.Logger;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import project.DataBase;
 
 /**
  *
@@ -94,7 +95,8 @@ public class UserCRUD extends javax.swing.JPanel {
         protected String doInBackground() {
             HttpURLConnection con = null;
             try {
-                String api = "http://13.215.176.178:8881/admin/all-user/";
+//                String api = "http://13.215.176.178:8881/admin/all-user/";
+                String api = DataBase.serverUrl+"/admin/all-user/";
 
                 String id = idText.getText();
 
@@ -160,7 +162,8 @@ public class UserCRUD extends javax.swing.JPanel {
         protected String doInBackground() {
             HttpURLConnection con = null;
             try {
-                String api = "http://13.215.176.178:8881/admin/all-user/update-user";
+//                String api = "http://13.215.176.178:8881/admin/all-user/update-user";
+                String api = DataBase.serverUrl+"/admin/all-user/update-user";
 
                 JSONObject user = new JSONObject();
 
@@ -244,7 +247,8 @@ public class UserCRUD extends javax.swing.JPanel {
         protected String doInBackground() {
             HttpURLConnection con = null;
             try {
-                String api = "http://13.215.176.178:8881/admin/all-user/create-user";
+//                String api = "http://13.215.176.178:8881/admin/all-user/create-user";
+                String api = DataBase.serverUrl+"/admin/all-user/create-user";
 
                 URL url = new URL(api);
 
@@ -635,7 +639,7 @@ public class UserCRUD extends javax.swing.JPanel {
                     .addComponent(updateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(createNewButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(banButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(23, 23, 23))
+                .addGap(50, 50, 50))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -849,5 +853,6 @@ public class UserCRUD extends javax.swing.JPanel {
             banButton.setText("Unban");
         }
     }
+    
 
 }

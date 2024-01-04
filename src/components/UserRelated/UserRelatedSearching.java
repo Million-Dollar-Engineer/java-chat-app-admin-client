@@ -213,7 +213,7 @@ public class UserRelatedSearching extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     public String getSortBy() {
-        Object selectedItem = option.getSelectedItem();
+        Object selectedItem = sortBy.getSelectedItem();
         if (selectedItem != null) {
             return selectedItem.toString();
         } else {

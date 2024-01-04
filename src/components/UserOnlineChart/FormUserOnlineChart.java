@@ -23,6 +23,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import project.DataBase;
 
 public class FormUserOnlineChart extends javax.swing.JPanel {
 
@@ -65,7 +66,8 @@ public class FormUserOnlineChart extends javax.swing.JPanel {
         protected String doInBackground() {
             try {
                 String year = userOnlineChartSearching.getYear();
-                String api = "http://13.215.176.178:8881/admin/users-active-each-month" + "?year=" + year;
+//                String api = "http://13.215.176.178:8881/admin/users-active-each-month" + "?year=" + year;
+                String api = DataBase.serverUrl + "/admin/users-active-each-month" + "?year=" + year;
 
                 HttpClient client = HttpClient.newHttpClient();
 

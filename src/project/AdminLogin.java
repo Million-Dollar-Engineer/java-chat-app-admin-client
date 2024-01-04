@@ -21,6 +21,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import org.json.simple.parser.ParseException;
 
 /**
@@ -79,7 +80,7 @@ public class AdminLogin extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(0, 102, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setLabelFor(jLabel1);
-        jLabel1.setText("Project Name");
+        jLabel1.setText("Million Dollar");
 
         jLabel2.setBackground(new java.awt.Color(255, 255, 255));
         jLabel2.setFont(new java.awt.Font("Arial", 1, 25)); // NOI18N
@@ -112,7 +113,6 @@ public class AdminLogin extends javax.swing.JFrame {
         });
 
         forgotPasswordLabel.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        forgotPasswordLabel.setText("Forgot Password?");
         forgotPasswordLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         forgotPasswordLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -196,58 +196,74 @@ public class AdminLogin extends javax.swing.JFrame {
     }
 
     public String callAPI() {
-        try {
-            String username = usernameText.getText();
-            String password = String.valueOf(passwordText.getPassword());
 
-            String apiUrl = "http://13.215.176.178:8881/user/login";
-            URL url = new URL(apiUrl);
-            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+                String username = usernameText.getText();
+                String password = String.valueOf(passwordText.getPassword());
 
-            con.setRequestMethod("POST");
-            con.setRequestProperty("Content-Type", "application/json");
-            con.setDoOutput(true);
+//                String apiUrl = "http://13.215.176.178:8881/user/login";
+                String apiUrl = DataBase.serverUrl + "/user/login";
 
-            String postData = "{\"username\":\"" + username + "\",\"password\":\"" + password + "\"}";
+                try {
 
-            try (DataOutputStream wr = new DataOutputStream(con.getOutputStream())) {
-                byte[] postDataBytes = postData.getBytes(StandardCharsets.UTF_8);
-                wr.write(postDataBytes);
-            }
+                    URL url = new URL(apiUrl);
+                    HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
-            int resCode = con.getResponseCode();
+                    con.setRequestMethod("POST");
+                    con.setRequestProperty("Content-Type", "application/json");
+                    con.setDoOutput(true);
 
-            System.out.println("Response Code:" + resCode);
+                    String postData = "{\"username\":\"" + username + "\",\"password\":\"" + password + "\"}";
+
+                    try (DataOutputStream wr = new DataOutputStream(con.getOutputStream())) {
+                        byte[] postDataBytes = postData.getBytes(StandardCharsets.UTF_8);
+                        wr.write(postDataBytes);
+                    }
+
+                    int resCode = con.getResponseCode();
+
+                    System.out.println("Response Code:" + resCode);
 
 //            JsonParser parser = new JsonParser();
 //            JsonObject jsonObject = parser.parse(res).getAsJsonObject();
 //            System.out.println("Data: "+jsonObject);
-            if (200 == resCode) {
+                    if (200 == resCode) {
 
-                BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                String resBuf = "";
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    resBuf = resBuf + line;
+                        BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                        String resBuf = "";
+                        String line;
+                        while ((line = reader.readLine()) != null) {
+                            resBuf = resBuf + line;
+                        }
+                        JSONParser parser = new JSONParser();
+                        JSONObject res = (JSONObject) parser.parse(resBuf);
+                        System.out.println("Data" + res);
+                        con.disconnect();
+
+                        String id = String.valueOf(res.get("id"));
+                    return id;
+
+                    } else {
+                        con.disconnect();
+                        SwingUtilities.invokeLater(() -> {
+                            JOptionPane.showMessageDialog(null, "Invalid username or password", "Notify", JOptionPane.INFORMATION_MESSAGE);
+                        });
+                    return null;
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-                JSONParser parser = new JSONParser();
-                JSONObject res = (JSONObject) parser.parse(resBuf);
-                System.out.println("Data" + res);
-                con.disconnect();
 
-                String id = String.valueOf(res.get("id"));
-                return id;
+//            }
+//        }
+//        ).start();
 
-            } else {
-                con.disconnect();
-                JOptionPane.showMessageDialog(null, "Invalid username or password", "Notify", JOptionPane.INFORMATION_MESSAGE);
-                return null;
-            }
-        } catch (ParseException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         return null;
     }
 
