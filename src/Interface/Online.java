@@ -22,4 +22,8 @@ public class Online {
 
     @SerializedName("chatted_group")
     public String chattedGroup;
+    
+    
+    @SerializedName("created_at")
+    public String createdAt;
 }

@@ -55,7 +55,7 @@ public class UserRelatedTable extends JTable {
     }
 
     public void addRelatedRow(Related relate) {
-        addRow(new Object[]{relate.id, relate.username, relate.friend, relate.friendOfFriend});
+        addRow(new Object[]{relate.id, relate.username, relate.friend, relate.friendOfFriend, relate.createdAt});
     }
 
     public void initComponents() {

@@ -57,7 +57,7 @@ public class UserOnlineTable extends JTable {
     }
 
     public void addOnlineRow(Online relate) {
-        addRow(new Object[]{relate.id, relate.username, relate.accessTime, relate.chattedPeople, relate.chattedGroup});
+        addRow(new Object[]{relate.id, relate.username, relate.accessTime, relate.chattedPeople, relate.chattedGroup, relate.createdAt});
     }
 
     public void initComponents() {

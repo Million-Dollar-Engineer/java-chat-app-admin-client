@@ -82,7 +82,7 @@ public class GroupChatList extends javax.swing.JPanel {
                 String name = groupChatListSearching.getSearchText();
                     
 //                String api = "http://13.215.176.178:8881/admin/group-chat" + "?sortBy=" + sortBy + "&name=" + name+"&order="+order;
-                String api = DataBase.serverUrl + "/admin/group-chat" + "?sortBy=" + sortBy + "&name=" + name+"&order="+order;
+                String api = DataBase.serverUrl + "/admin/group-chat" + "?sortBy=" + sortBy + "&name=" + URLEncoder.encode(name, "UTF-8")+"&order="+order;
 
                 HttpClient client = HttpClient.newHttpClient();
                 HttpRequest req = HttpRequest.newBuilder()

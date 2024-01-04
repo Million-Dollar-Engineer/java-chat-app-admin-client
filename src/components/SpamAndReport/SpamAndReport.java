@@ -94,7 +94,7 @@ public class SpamAndReport extends javax.swing.JPanel {
 
 //                String api = "http://13.215.176.178:8881/admin/spam-reports" + "?sortBy=" + sortBy + "&username=" + name + "&startTime=" + startTime + "&endTime=" + endTime;
                 String api = DataBase.serverUrl + "/admin/spam-reports" + "?sortBy=" + sortBy + "&order=" + orderBy + "&username=" + name + "&startTime=" + startTime + "&endTime=" + endTime;
-                System.out.println("API: "+ api);
+                System.out.println("API: " + api);
                 HttpClient client = HttpClient.newHttpClient();
                 HttpRequest req = HttpRequest.newBuilder()
                         .uri(new URI(api))
@@ -172,14 +172,14 @@ public class SpamAndReport extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Id", "Reporter", "Accused", "Reason", "Create At"
+                "Id", "Reporter Id", "Accused Id", "User Name of Accused", "Reason", "Create At"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true
+                false, false, false, true, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -254,12 +254,13 @@ public class SpamAndReport extends javax.swing.JPanel {
                 if (selectedRow != -1) {
                     // Lấy dữ liệu từ dòng được chọn
                     String reportedUser = getStringValue(spamAndReportTable.getValueAt(selectedRow, 2));
-                    String content = getStringValue(spamAndReportTable.getValueAt(selectedRow, 3));
+                    String username = getStringValue(spamAndReportTable.getValueAt(selectedRow, 3));
+                    String content = getStringValue(spamAndReportTable.getValueAt(selectedRow, 4));
 
                     System.out.println(reportedUser + "  " + content);
-                    spamAndReportBan.setReportedUser(reportedUser);
+                    spamAndReportBan.setReportedUser(username);
                     spamAndReportBan.setContent(content);
-
+                    spamAndReportBan.setHidden(reportedUser);
                 }
             }
         }

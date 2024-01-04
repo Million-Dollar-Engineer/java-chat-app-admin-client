@@ -40,7 +40,7 @@ public class SpamAndReportBan extends javax.swing.JPanel {
      */
     public SpamAndReportBan() {
         initComponents();
-
+        hidden.setVisible(false);
         banButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -49,6 +49,12 @@ public class SpamAndReportBan extends javax.swing.JPanel {
         });
     }
 
+    public void setHidden(String value)
+    {
+        hidden.setText(value);
+    }
+        
+    
     private class CallAPIBanUser extends SwingWorker<String, Object> {
 
         @Override
@@ -81,12 +87,12 @@ public class SpamAndReportBan extends javax.swing.JPanel {
 
                     JSONParser par = new JSONParser();
                     JSONObject data = (JSONObject) par.parse(body);
-                    String msg = String.valueOf(data.get("message"));
+                    String msg = String.valueOf("Ban successfully username: "+reportedUserText.getText());
                     return msg;
 
                 } else {
                     System.out.println("Call API Fail");
-                    return "Failed ban user";
+                    return "Failed ban";
                 }
             } catch (Throwable e) {
                 e.printStackTrace();
@@ -129,12 +135,13 @@ public class SpamAndReportBan extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         contentText = new javax.swing.JTextArea();
+        hidden = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(127, 127, 127));
-        jLabel1.setText("Reported User:");
+        jLabel1.setText("Accused User:");
 
         reportedUserText.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         reportedUserText.setForeground(new java.awt.Color(51, 51, 51));
@@ -168,9 +175,9 @@ public class SpamAndReportBan extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(139, 139, 139)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(139, 139, 139)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3))
@@ -178,7 +185,10 @@ public class SpamAndReportBan extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 593, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(reportedUserText, javax.swing.GroupLayout.PREFERRED_SIZE, 593, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(hidden, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(banButton, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(195, 195, 195)))
                 .addContainerGap(234, Short.MAX_VALUE))
@@ -195,7 +205,11 @@ public class SpamAndReportBan extends javax.swing.JPanel {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(banButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 9, Short.MAX_VALUE))
+                .addGap(0, 14, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(hidden, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -223,6 +237,7 @@ public class SpamAndReportBan extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton banButton;
     private javax.swing.JTextArea contentText;
+    private javax.swing.JLabel hidden;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;

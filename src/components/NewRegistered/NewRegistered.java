@@ -17,8 +17,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -87,7 +89,12 @@ public class NewRegistered extends javax.swing.JPanel {
             String fullname = newRegisteredSearching.getSearchText();
 
 //            String api = "http://13.215.176.178:8881/admin/all-user" + "?sortBy=" + sortBy + "&order=" + order + "&fullname=" + fullname;
-            String api = DataBase.serverUrl + "/admin/all-user" + "?sortBy=" + sortBy + "&order=" + order + "&fullname=" + fullname;
+            String api = "";
+            try {
+                api = DataBase.serverUrl + "/admin/all-user" + "?sortBy=" + sortBy + "&order=" + order + "&fullname=" + URLEncoder.encode(fullname, "UTF-8");
+            } catch (UnsupportedEncodingException ex) {
+                Logger.getLogger(NewRegistered.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
             api = api + "&startTime=" + startTime + "&endTime=" + endTime;
 

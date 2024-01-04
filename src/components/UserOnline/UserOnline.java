@@ -79,7 +79,7 @@ public class UserOnline extends javax.swing.JPanel {
             String sortBy = userOnlineSearching.getSortBy();
             System.out.println("Sort by: " + sortBy);
             if (sortBy.equals("name")) {
-                sortBy = "username";
+                sortBy = "full_name";
             } else {
                 sortBy = "created_at";
             }
@@ -184,11 +184,11 @@ public class UserOnline extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Id", "User Name", "Number Access Times", "Number Chatted People", "Number Chatted Group"
+                "Id", "User Name", "Number Access Times", "Number Chatted People", "Number Chatted Group", "Created At"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {

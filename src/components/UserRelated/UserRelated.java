@@ -18,8 +18,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -96,7 +98,12 @@ public class UserRelated extends javax.swing.JPanel {
 
 //            String api = "http://13.215.176.178:8881/admin/friend-and-fof" + "?sortBy=" + sortBy +"&order=asc"+ "&" + option + "=" + number + "&username=" + username;
 //                    + "&username=" + username;
-            String api = DataBase.serverUrl + "/admin/friend-and-fof" + "?sortBy=" + sortBy + "&order=asc" + "&" + option + "=" + number + "&name=" + fullname;
+            String api="";
+            try {
+                api = DataBase.serverUrl + "/admin/friend-and-fof" + "?sortBy=" + sortBy + "&order=asc" + "&" + option + "=" + number + "&username=" +  URLEncoder.encode(fullname, "UTF-8");
+            } catch (UnsupportedEncodingException ex) {
+                Logger.getLogger(UserRelated.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
             System.out.println("Link :" + api);
             HttpClient client = HttpClient.newHttpClient();
@@ -178,11 +185,11 @@ public class UserRelated extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Id", "User Name ", "Number Direct Friends", "Number Friend of friend"
+                "Id", "User Name ", "Number Direct Friends", "Number Friend of friend", "Created At"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {

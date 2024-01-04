@@ -4,11 +4,15 @@
  */
 package Interface;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  *
  * @author lnt09
  */
 public class Related {
         public String id, username, friend, friendOfFriend;
-
+        
+    @SerializedName("created_at")
+    public String createdAt;
 }

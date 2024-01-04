@@ -25,4 +25,7 @@ public class Report {
 
     @SerializedName("created_at")
     public String createAt;
+
+    @SerializedName("username")
+    public String accusedUsername;
 }

@@ -97,7 +97,7 @@ public class UserManager extends javax.swing.JPanel {
                 if ("status".equals(searching.getOptionSearch())) {
                     query1 += "?status=";
                 }
-                query1 += searching.getSearchText();
+                query1 += URLEncoder.encode(searching.getSearchText(), "UTF-8");
 
                 String query2 = "";
                 String sortBy = searching.getSortBy();
@@ -110,6 +110,7 @@ public class UserManager extends javax.swing.JPanel {
                 String query3 = "&order=" + searching.getOrder();
 
                 String linkWithParameter = linkAPI + query1 + query2 + query3;
+                
                 System.out.println(linkWithParameter);
                 URL url = new URL(linkWithParameter);
 

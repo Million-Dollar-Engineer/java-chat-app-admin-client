@@ -54,7 +54,7 @@ public class SpamAndReportTable extends JTable {
     }
 
     public void addReportRow(Report report) {
-        addRow(new Object[]{report.id, report.reporter, report.accused, report.reason, report.createAt});
+        addRow(new Object[]{report.id, report.reporter, report.accused, report.accusedUsername, report.reason, report.createAt});
     }
 
     public void initComponents() {
