@@ -17,7 +17,6 @@
             <file>file:/C:/Users/lnt09/OneDrive/Documents/NetBeansProjects/Project/src/components/userManager/UserCRUD.java</file>
             <file>file:/C:/Users/lnt09/OneDrive/Documents/NetBeansProjects/Project/src/components/UserOnline/UserOnlineSearching.java</file>
             <file>file:/C:/Users/lnt09/OneDrive/Documents/NetBeansProjects/Project/src/Interface/User.java</file>
-            <file>file:/C:/Users/lnt09/OneDrive/Documents/NetBeansProjects/Project/src/components/userManager/UserManagerTable.java</file>
             <file>file:/C:/Users/lnt09/OneDrive/Documents/NetBeansProjects/Project/src/components/SpamAndReport/SpamAndReport.java</file>
             <file>file:/C:/Users/lnt09/OneDrive/Documents/NetBeansProjects/Project/src/project/Project.java</file>
             <file>file:/C:/Users/lnt09/OneDrive/Documents/NetBeansProjects/Project/src/components/RegisteredChart/FormRegisteredChart.java</file>
@@ -26,6 +25,7 @@
             <file>file:/C:/Users/lnt09/OneDrive/Documents/NetBeansProjects/Project/src/components/GroupChatList/GroupChatListTable.java</file>
             <file>file:/C:/Users/lnt09/OneDrive/Documents/NetBeansProjects/Project/src/components/GroupChatList/ViewAllMember/GroupChatListAllMember.java</file>
             <file>file:/C:/Users/lnt09/OneDrive/Documents/NetBeansProjects/Project/src/components/userManager/UserManagerController.java</file>
+            <file>file:/C:/Users/lnt09/OneDrive/Documents/NetBeansProjects/Project/src/Interface/Online.java</file>
             <file>file:/C:/Users/lnt09/OneDrive/Documents/NetBeansProjects/Project/src/components/UserRelated/UserRelatedSearching.java</file>
             <file>file:/C:/Users/lnt09/OneDrive/Documents/NetBeansProjects/Project/src/components/GroupChatList/GroupChatListSearching.java</file>
             <file>file:/C:/Users/lnt09/OneDrive/Documents/NetBeansProjects/Project/src/components/UserOnlineChart/UserOnlineChartLine.java</file>
@@ -52,16 +52,20 @@
             <file>file:/C:/Users/lnt09/OneDrive/Documents/NetBeansProjects/Project/src/project/AdminLogin.java</file>
             <file>file:/C:/Users/lnt09/OneDrive/Documents/NetBeansProjects/Project/src/components/RegisteredChart/ChatRegisteredLine.java</file>
             <file>file:/C:/Users/lnt09/OneDrive/Documents/NetBeansProjects/Project/src/components/NewRegistered/NewRegisteredTableHeader.java</file>
+            <file>file:/C:/Users/lnt09/OneDrive/Documents/NetBeansProjects/Project/src/project/DataBase.java</file>
             <file>file:/C:/Users/lnt09/OneDrive/Documents/NetBeansProjects/Project/src/project/DashBoard.java</file>
             <file>file:/C:/Users/lnt09/OneDrive/Documents/NetBeansProjects/Project/src/components/SpamAndReport/SpamAndReportBan.java</file>
+            <file>file:/C:/Users/lnt09/OneDrive/Documents/NetBeansProjects/Project/src/Interface/Related.java</file>
             <file>file:/C:/Users/lnt09/OneDrive/Documents/NetBeansProjects/Project/src/components/UserOnlineChart/PanelUserOnlineChart.java</file>
             <file>file:/C:/Users/lnt09/OneDrive/Documents/NetBeansProjects/Project/src/components/RegisteredChart/MainFormRegisteredChart.java</file>
             <file>file:/C:/Users/lnt09/OneDrive/Documents/NetBeansProjects/Project/src/components/NewRegistered/NewRegistered.java</file>
             <file>file:/C:/Users/lnt09/OneDrive/Documents/NetBeansProjects/Project/src/components/NewRegistered/NewRegisteredTable.java</file>
             <file>file:/C:/Users/lnt09/OneDrive/Documents/NetBeansProjects/Project/src/project/SearchText.java</file>
+            <file>file:/C:/Users/lnt09/OneDrive/Documents/NetBeansProjects/Project/src/Interface/OnlineChart.java</file>
             <file>file:/C:/Users/lnt09/OneDrive/Documents/NetBeansProjects/Project/src/components/userManager/LoginHistory/UserManagerLoginHistoryTable.java</file>
             <file>file:/C:/Users/lnt09/OneDrive/Documents/NetBeansProjects/Project/src/components/GroupChatList/GroupChatList.java</file>
             <file>file:/C:/Users/lnt09/OneDrive/Documents/NetBeansProjects/Project/src/components/GroupChatList/ViewAllAdmin/GroupChatListAllAdminTableHeader.java</file>
+            <file>file:/C:/Users/lnt09/OneDrive/Documents/NetBeansProjects/Project/src/components/RegisteredChart/ModelRegisteredChartLine.java</file>
             <file>file:/C:/Users/lnt09/OneDrive/Documents/NetBeansProjects/Project/src/components/LoginHistory/LoginHistoryTable.java</file>
             <file>file:/C:/Users/lnt09/OneDrive/Documents/NetBeansProjects/Project/src/components/Menu.java</file>
             <file>file:/C:/Users/lnt09/OneDrive/Documents/NetBeansProjects/Project/src/components/userManager/LoginHistory/UserManagerLoginHistoryTableHeader.java</file>

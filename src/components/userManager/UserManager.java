@@ -85,7 +85,7 @@ public class UserManager extends javax.swing.JPanel {
             HttpURLConnection con = null;
             try {
                 //Call API in here
-                String linkAPI = DataBase.serverUrl+"/admin/all-user";
+                String linkAPI = DataBase.serverUrl + "/admin/all-user";
 
                 String query1 = "";
                 if ("name".equals(searching.getOptionSearch())) {
@@ -97,8 +97,11 @@ public class UserManager extends javax.swing.JPanel {
                 if ("status".equals(searching.getOptionSearch())) {
                     query1 += "?status=";
                 }
-                query1 += URLEncoder.encode(searching.getSearchText(), "UTF-8");
-
+                if (searching.getSearchText().equals("")) {
+                    query1 = "?fullname=";
+                } else {
+                    query1 += URLEncoder.encode(searching.getSearchText(), "UTF-8");
+                }
                 String query2 = "";
                 String sortBy = searching.getSortBy();
                 if (sortBy == "name") {
@@ -110,7 +113,7 @@ public class UserManager extends javax.swing.JPanel {
                 String query3 = "&order=" + searching.getOrder();
 
                 String linkWithParameter = linkAPI + query1 + query2 + query3;
-                
+
                 System.out.println(linkWithParameter);
                 URL url = new URL(linkWithParameter);
 
